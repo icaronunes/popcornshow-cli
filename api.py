@@ -1,6 +1,6 @@
 import requests
 
-paramsDefault = {'page': '1', 'pageSize': '50',
+paramsDefault = {'page': '1', 'pageSize': '10',
                  'region': 'us', 'take': '50', 'terms': ''}
 
 def search(query: str) -> str:

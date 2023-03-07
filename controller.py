@@ -1,15 +1,18 @@
 from api import search as SearchApi
+from models.itemSearch import ItemSearch
 from tables import __tableItem__, tableItems
 from utils import formatDate
 from dto import formatList
 import json
 
 
-def searchReel(query: str, year: int | None, type: str | None):
+def searchReel(query: str, year: int | None, type: str | None) -> list[ItemSearch]:
     result = SearchApi(query=query)
     objJson = json.loads(result)
     listSearch = filtersArgs(objJson['items'], year, type)
+    result = formatList(listSearch)
     tableItems(formatList(listSearch))
+    return result
 
 
 def fillTable(item):

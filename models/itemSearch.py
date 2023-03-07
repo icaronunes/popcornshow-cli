@@ -10,7 +10,7 @@ class ItemSearch():
     type: str
     imdb: float
     online: list[str]
-    url: str
+    slug: str
 
     def formatLongType(self):
         return formatType(self.type)
@@ -19,12 +19,12 @@ class ItemSearch():
         return formatSource(self.online)
 
     def createUrl(self):
-        return fullUrl(self.type, self.url)
+        return fullUrl(self.type, self.slug)
 
 
     def formatSimpleDate(self):
         result = formatDate(self.release)
-        if result == None: return "- -"
+        if result == None: return "----"
         return result.year
     
     def formatSimpleDateStr(self): 

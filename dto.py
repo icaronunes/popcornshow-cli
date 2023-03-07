@@ -13,7 +13,7 @@ def formatList(items: list[object]) -> list[ItemSearch]:
             type=item['content_type'],
             release=item['released_on'],
             online=list(item['sources']),
-            url=item['slug'])
+            slug=item['slug'])
 
     lista = map(lambda item: dto(item), enumerate(items))
     return sorted(lista, key=lambda item: str(item.release),reverse=True) 
