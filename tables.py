@@ -2,10 +2,15 @@ from rich.console import Console
 from rich.table import Table
 from models.itemSearch import ItemSearch
 
-
 console = Console()
 
-table = Table(title="POPCORN SHOW - SEARCH")
+table = Table(
+    title="POPCORN SHOW - SEARCH",
+    highlight=True,
+    show_header=True,
+    show_edge=True,
+    expand=True
+)
 movieType = [
     'Index',
     'Title',
