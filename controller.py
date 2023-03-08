@@ -11,7 +11,7 @@ def searchReel(query: str, year: int | None, type: str | None) -> list[ItemSearc
     objJson = json.loads(result)
     listSearch = filtersArgs(objJson['items'], year, type)
     result = formatList(listSearch)
-    tableItems(formatList(listSearch))
+    tableItems(result)
     return result
 
 

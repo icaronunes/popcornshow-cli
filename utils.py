@@ -1,6 +1,8 @@
 from datetime import datetime
 from config import URL_BASE
 
+BACK = 'back'
+
 def formatDate(date: str | None) -> datetime | None:
     if date == None: return date
     formatDate = date[:19]

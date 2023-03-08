@@ -1,6 +1,7 @@
 from controller import searchReel
 from models.itemSearch import ItemSearch
 import typer
+from utils import BACK
 
 app = typer.Typer(help="PopCorn Show")
 
@@ -9,24 +10,31 @@ app = typer.Typer(help="PopCorn Show")
 def search(name: str,
            year: int = None,
            type: str = typer.Option(None, help="'m' or 's'")):
-    print(f"Search for {name} {year}")
     list = searchReel(name, year=year, type=type)
-    number = input("For details, type number: ")
-    chooseNumber(list, number)
+    chooseNumber(list)
 
 
-def chooseNumber(list: list[ItemSearch], number: int):
+def chooseNumber(list: list[ItemSearch], hasError=False):
+    number = input(
+        f"For details, write a number between 1 and {list.__len__()} : ")
+    if (hasError and number == BACK):
+        return
     try:
-        item = list[int(number, 10) - 1]
-        print(item)
+        number = int(number)
+        print("Number", number, "list", list.__len__())
+        if (number > 0 and number <= list.__len__()):
+            item = list[number - 1]
+            print(item)
+        else:
+            print("Number off the list.")
     except ValueError:
-        print("Number Error!")
+        print("Number Error! - write 'back' to exit ")
+        chooseNumber(list, True)
 
-
-@app.command()
-def init():
-    print("POPCORN SHOW!")
+def init():    
+    # print("POPCORN SHOW! - CLI") CRIAR TELA DE BOAS VINDAS
+    app()
 
 
 if __name__ == "__main__":
-    app()
+    typer.run(init())

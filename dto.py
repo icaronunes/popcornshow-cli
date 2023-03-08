@@ -15,8 +15,8 @@ def formatList(items: list[object]) -> list[ItemSearch]:
             online=list(item['sources']),
             slug=item['slug'])
 
-    lista = map(lambda item: dto(item), enumerate(items))
-    return sorted(lista, key=lambda item: str(item.release),reverse=True) 
+    result = map(lambda item: dto(item), enumerate(items))
+    return sorted(result, key=lambda item: str(item.release),reverse=True) 
     """
     Criar model para não precisar converter release para fazer o sorted
     """
