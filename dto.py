@@ -1,24 +1,21 @@
 
 
-from models.itemSearch import ItemSearch
+from models.Search import Search
+from api.models.SearchApi import Item
 
 
-def formatList(items: list[object]) -> list[ItemSearch]:
+def formatList(items: list[Item]) -> list[Search]:
     def dto(values):
         index, item = values
-        return ItemSearch(
+        return Search(
             id=index,
             title=item['title'],
             imdb=item['imdb_rating'],
             type=item['content_type'],
             release=item['released_on'],
-            online=list(item['sources']),
-            slug=item['slug'])
+            online=item['sources'],
+            slug=item['slug']
+        )
 
     result = map(lambda item: dto(item), enumerate(items))
-    return sorted(result, key=lambda item: str(item.release),reverse=True) 
-    """
-    Criar model para não precisar converter release para fazer o sorted
-    """
-
-
+    return sorted(result, key=lambda item: str(item.release), reverse=True)

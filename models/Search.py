@@ -1,9 +1,9 @@
 from dataclasses import dataclass
-from utils import createUrl as fullUrl, formatSource, formatType,formatDate
+from utils import createUrl as fullUrl, formatSource, formatType, formatDate
 
 
 @dataclass
-class ItemSearch():
+class Search():
     id: int
     title: str
     release: str
@@ -21,13 +21,13 @@ class ItemSearch():
     def createUrl(self):
         return fullUrl(self.type, self.slug)
 
-
     def formatSimpleDate(self):
         result = formatDate(self.release)
-        if result == None: return "----"
+        if result == None:
+            return "----"
         return result.year
-    
-    def formatSimpleDateStr(self): 
+
+    def formatSimpleDateStr(self):
         return str(self.formatSimpleDate())
-    
+
     def imdbStr(self): return str(self.imdb)

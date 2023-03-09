@@ -1,17 +1,10 @@
 from rich.console import Console
 from rich.table import Table
-from models.itemSearch import ItemSearch
+from models.Search import Search
 
 console = Console()
 
-table = Table(
-    title="POPCORN SHOW - SEARCH",
-    highlight=True,
-    show_header=True,
-    show_edge=True,
-    expand=True
-)
-movieType = [
+searchType = [
     'Index',
     'Title',
     'Release',
@@ -21,12 +14,41 @@ movieType = [
     'Details'
 ]
 
+movieType = [    
+    'Title',
+    "Overview"
+    'Release',
+    'Time',    
+    'IMDB Rate',
+    'Online',
+    'Trailers'    
+    'Details',
+    'Type',
+]
 
-def tableItems(items: list[ItemSearch]):
-    for title in movieType:
+
+table = Table(
+    title="POPCORN SHOW - SEARCH",
+    highlight=True,
+    show_header=True,
+    show_edge=True,
+    expand=True
+)
+
+tableMovie = Table(
+    title="POPCORN SHOW - MOVIE",
+    highlight=True,
+    show_header=True,
+    show_edge=True,
+    expand=True
+)
+
+
+def tableSearch(items: list[Search]):
+    for title in searchType:
         table.add_column(title)
     for index, item in enumerate(items):
-        __tableItem__(
+        __tableItem(
             id=str(index + 1),
             title=item.title,
             release=item.formatSimpleDateStr(),
@@ -38,7 +60,7 @@ def tableItems(items: list[ItemSearch]):
     console.print(table)
 
 
-def __tableItem__(
+def __tableItem(
     id: int,
     title: str,
     imdb: float,

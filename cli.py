@@ -1,5 +1,7 @@
-from controller import searchReel
-from models.itemSearch import ItemSearch
+from controller import searchReel, getMovie
+from tables.table_movie import tableMovie
+from tables.table_search import tableSearch
+from models.Search import Search
 import typer
 from utils import BACK
 
@@ -9,19 +11,21 @@ app = typer.Typer(help="PopCorn Show")
 @app.command(name="search")
 def search(name: str,
            year: int = None,
-           type: str = typer.Option(None, help="'m' or 's'")):
+           type: str = typer.Option(None, '--type', '-t', help="'m' or 's'")):
     list = searchReel(name, year=year, type=type)
-    chooseNumber(list)
+    if list:
+        tableSearch(list)
+        chooseNumber(list)
 
 
-def chooseNumber(list: list[ItemSearch], hasError=False):
+def chooseNumber(list: list[Search], hasError=False):
     number = input(
         f"For details, write a number between 1 and {list.__len__()} : ")
+    item: None
     if (hasError and number == BACK):
         return
     try:
         number = int(number)
-        print("Number", number, "list", list.__len__())
         if (number > 0 and number <= list.__len__()):
             item = list[number - 1]
             print(item)
@@ -31,7 +35,11 @@ def chooseNumber(list: list[ItemSearch], hasError=False):
         print("Number Error! - write 'back' to exit ")
         chooseNumber(list, True)
 
-def init():    
+    movie = getMovie(item)
+    tableMovie(movie)
+
+
+def init():
     # print("POPCORN SHOW! - CLI") CRIAR TELA DE BOAS VINDAS
     app()
 
