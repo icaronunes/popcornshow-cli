@@ -1,8 +1,11 @@
 from dataclasses import dataclass
-
-from typing import Optional, List
-from uuid import UUID
 from datetime import datetime
+from models.Trailer import Trailer
+from typing import List, Optional
+from uuid import UUID
+
+from utils import formatDate, formatTrailers, formatSource, filterTrailerByService, createUrl as fullUrl
+
 
 class Links:
     web: str
@@ -268,17 +271,6 @@ class Tag:
         self.display_name = display_name
 
 
-class Trailer:
-    site: str
-    key: str
-    url: None
-
-    def __init__(self, site: str, key: str, url: None) -> None:
-        self.site = site
-        self.key = key
-        self.url = url
-
-
 class ItemMovie:
     metadata: Metadata
     id: str
@@ -356,3 +348,30 @@ class ItemMovie:
         self.regional_availability = regional_availability
         self.source_ad_placement = source_ad_placement
         self.source_ad_placements = source_ad_placements
+
+    def formatDate(self) -> str:
+        return str(formatDate(self.released_on).date()) if self.released_on is not None else '-- --'
+
+    def formatTime(self) -> str:
+        if self.runtime is not None:
+            hours, minutes = divmod(self.runtime, 60)
+            return f'{hours}h {minutes}m'
+        else:
+            return '-- --'
+
+    def getListTrailers(self) -> str:
+        if self.trailer is not None:
+            self.trailers.append(self.trailer)
+        return formatTrailers(filterTrailerByService(self.trailers))
+
+    def formatSources(self) -> str:
+        return formatSource(self.sources)
+
+    def createUrl(self):
+        return fullUrl('m', self.slug)
+
+    def imdbStr(self) -> str:
+        if self.imdb_rating != None:
+            return str(self.imdb_rating)
+        else:
+            return '-.-'

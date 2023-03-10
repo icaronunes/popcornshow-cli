@@ -30,4 +30,8 @@ class Search():
     def formatSimpleDateStr(self):
         return str(self.formatSimpleDate())
 
-    def imdbStr(self): return str(self.imdb)
+    def imdbStr(self) -> str:
+        if self.imdb != None:
+            return str(self.imdb)
+        else:
+            return '-.-'

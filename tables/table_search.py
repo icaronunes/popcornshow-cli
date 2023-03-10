@@ -5,27 +5,14 @@ from models.Search import Search
 console = Console()
 
 searchType = [
-    'Index',
+    ':1234: Index',
     'Title',
-    'Release',
+    ':date: Release',
     'Type',
-    'IMDB rate',
-    'Online',
-    'Details'
+    ':100: IMDB rate',
+    ':movie_camera: Online',
+    ':link: Details'
 ]
-
-movieType = [    
-    'Title',
-    "Overview"
-    'Release',
-    'Time',    
-    'IMDB Rate',
-    'Online',
-    'Trailers'    
-    'Details',
-    'Type',
-]
-
 
 table = Table(
     title="POPCORN SHOW - SEARCH",
@@ -50,7 +37,7 @@ def tableSearch(items: list[Search]):
     for index, item in enumerate(items):
         __tableItem(
             id=str(index + 1),
-            title=item.title,
+            title=f"[white]{item.title}[/white]",
             release=item.formatSimpleDateStr(),
             type=item.formatLongType(),
             imdb=item.imdbStr(),
@@ -58,7 +45,7 @@ def tableSearch(items: list[Search]):
             url=item.createUrl()
         )
     console.print(table)
-
+# f"[bold red]Id:[/bold red][green] {value} [/green] \n"
 
 def __tableItem(
     id: int,

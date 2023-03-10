@@ -1,20 +1,18 @@
 from rich.console import Console
 from rich.table import Table
 from models.ItemMovie import ItemMovie
-from utils import createUrl as fullUrl, formatSource, formatType, formatDate
 
 console = Console()
 
 movieType = [
     'Title',
-    "Overview",
-    'Release',
-    'Time',
-    'IMDB Rate',
-    'Online',
-    'Trailers',
-    'Details',    
-    'Url'
+    ':scroll: Overview',
+    ':date: Release',
+    ':watch: Time',
+    ':100: IMDB Rate',
+    ':globe_with_meridians: Online',
+    ':movie_camera: Trailers',
+    ':link: Details'
 ]
 
 
@@ -32,15 +30,14 @@ def tableMovie(item: ItemMovie):
         table.add_column(title)
 
     __tableItem(
-        title=item.title,
+        title=f"[white]{item.title}[/white]",
         overview=item.overview,
-        release=item.released_on,
-        time=str(item.runtime),
-        imdb=str(item.imdb_rating),
-        online=formatSource(item.sources),
-        trailers=str('item.trailers'),
-        url=item.slug        
-
+        release=item.formatDate(),
+        time=item.formatTime(),
+        imdb=item.imdbStr(),
+        online=item.formatSources(),
+        trailers=item.getListTrailers(),
+        url=item.createUrl()
     )
     console.print(table, highlight=True)
 
@@ -53,7 +50,7 @@ def __tableItem(
     imdb: float,
     online: str,
     trailers: list[str],
-    url: str,    
+    url: str,
 ):
 
     table.add_row(
@@ -64,5 +61,6 @@ def __tableItem(
         imdb,
         online,
         trailers,
-        url
-    ) 
+        url,
+        end_section=True
+    )

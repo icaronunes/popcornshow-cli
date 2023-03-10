@@ -42,10 +42,12 @@ def filterByType(item, type) -> bool:
     return item['content_type'] == type
 
 
-def filtersArgs(items, year: int | None, type: str | None):
+def filtersArgs(items: list[any], year: int | None, type: str | None):
     if year == None and type == None:
         return items
     if year != None and type == None:
         return list(filter(lambda x: (filterByYear(x, year)), items))
     if year == None and type != None:
         return list(filter(lambda x: (filterByType(x, type)), items))
+    if year != None and type != None:        
+        return list(filter(lambda x: (filterByType(x, type) and filterByYear(x, year)), items))
