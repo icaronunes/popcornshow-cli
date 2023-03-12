@@ -4,7 +4,7 @@ from models.Trailer import Trailer
 from typing import List, Optional
 from uuid import UUID
 
-from utils import formatDate, formatTrailers, formatSource, filterTrailerByService, createUrl as fullUrl
+from utils import formatDate, formatTrailers, formatSources, filterTrailerByService, createUrl as fullUrl
 
 
 class Links:
@@ -50,16 +50,16 @@ class SourceData:
 
 
 class Availability:
-    rental_cost_hd: Optional[float]
-    rental_cost_sd: Optional[float]
-    purchase_cost_hd: Optional[float]
-    purchase_cost_sd: Optional[float]
+    rental_cost_hd: Optional[float | None]
+    rental_cost_sd: Optional[float | None]
+    purchase_cost_hd: Optional[float | None]
+    purchase_cost_sd: Optional[float | None]
     source_id: str
     source_name: str
     access_type: int
     source_data: SourceData
 
-    def __init__(self, rental_cost_hd: Optional[float], rental_cost_sd: Optional[float], purchase_cost_hd: Optional[float], purchase_cost_sd: Optional[float], source_id: str, source_name: str, access_type: int, source_data: SourceData) -> None:
+    def __init__(self, rental_cost_hd: Optional[float | None], rental_cost_sd: Optional[float | None], purchase_cost_hd: Optional[float | None], purchase_cost_sd: Optional[float | None], source_id: str, source_name: str, access_type: int, source_data: SourceData) -> None:
         self.rental_cost_hd = rental_cost_hd
         self.rental_cost_sd = rental_cost_sd
         self.purchase_cost_hd = purchase_cost_hd
@@ -365,7 +365,8 @@ class ItemMovie:
         return formatTrailers(filterTrailerByService(self.trailers))
 
     def formatSources(self) -> str:
-        return formatSource(self.sources)
+        values = list(map(lambda x: x['source_name'], self.availability))
+        return formatSources(values)
 
     def createUrl(self):
         return fullUrl('m', self.slug)

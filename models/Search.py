@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from utils import createUrl as fullUrl, formatSource, formatType, formatDate
+from utils import createUrl as fullUrl, formatSources, formatType, formatDate
 
 
 @dataclass
@@ -16,7 +16,7 @@ class Search():
         return formatType(self.type)
 
     def formatOnline(self):
-        return formatSource(self.online)
+        return formatSources(self.online)
 
     def createUrl(self):
         return fullUrl(self.type, self.slug)

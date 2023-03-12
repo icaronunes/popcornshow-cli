@@ -1,11 +1,12 @@
 from rich.console import Console
 from rich.table import Table
 from models.Search import Search
+from rich.table import Column
 
 console = Console()
 
 searchType = [
-    ':1234: Index',
+    ':id: Index',
     'Title',
     ':date: Release',
     'Type',
@@ -22,16 +23,8 @@ table = Table(
     expand=True
 )
 
-tableMovie = Table(
-    title="POPCORN SHOW - MOVIE",
-    highlight=True,
-    show_header=True,
-    show_edge=True,
-    expand=True
-)
 
-
-def tableSearch(items: list[Search]):
+def tableSearch(items: list[Search]) -> Table:
     for title in searchType:
         table.add_column(title)
     for index, item in enumerate(items):
@@ -44,8 +37,8 @@ def tableSearch(items: list[Search]):
             online=item.formatOnline(),
             url=item.createUrl()
         )
-    console.print(table)
-# f"[bold red]Id:[/bold red][green] {value} [/green] \n"
+    return table
+
 
 def __tableItem(
     id: int,
