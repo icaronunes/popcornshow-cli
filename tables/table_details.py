@@ -1,12 +1,12 @@
 from rich.console import Console
 from rich.table import Table, box
-from models.ItemMovie import ItemMovie
+from tables.TableInterface import TableInterface
 from tables.people import people
 from tables.sources import source
 
 console = Console()
 
-movieType = [
+topTable = [
     ':scroll: Overview',
     ':date: Release',
     ':watch: Time',
@@ -26,17 +26,17 @@ table = Table(
 )
 
 
-def tableMovie(item: ItemMovie) -> Table:
-    for title in movieType:
+def table_details(item: TableInterface) -> Table:
+    for title in topTable:
         table.add_column(title)
 
     __tableItem(
-        overview=item.overview,
-        release=item.formatDate(),
-        time=item.formatTime(),
-        imdb=item.imdbStr(),
-        classification=f"[b][white]{item.classification}" if item.classification else 'Who knows',
-        trailers=item.getListTrailers()
+        overview=item.get_overview(),
+        release=item.get_date(),
+        time=item.get_time(),
+        imdb=item.get_imdb(),
+        classification=item.get_classification(),
+        trailers=item.get_trailers()
     )
     return table
 

@@ -15,6 +15,7 @@ searchType = [
     ':link: Details'
 ]
 
+
 table = Table(
     title="POPCORN SHOW - SEARCH",
     highlight=True,

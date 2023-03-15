@@ -8,7 +8,7 @@ from rich.tree import Tree
 from controller import getMovie, searchReel
 from models.ItemMovie import ItemMovie
 from models.Search import Search
-from tables.table_movie import tableMovie
+from tables.table_details import table_details
 from tables.table_search import tableSearch
 from tables.people import people
 from tables.sources import columns, source
@@ -43,7 +43,7 @@ def showMovie(movie: ItemMovie):
     tree.add(__rich__())
     details = Tree(
         f":blue_book: Details - [b]{movie.title} {formatDate(movie.released_on).year}[/b] - :link: [blue][link={movie.createUrl()}] Details in Reelgood.com[/link]", expanded=True)
-    details.add(tableMovie(movie), highlight=False)
+    details.add(table_details(movie), highlight=False)
 
     person = Tree(":busts_in_silhouette: People")
     person.add(people(movie.people))

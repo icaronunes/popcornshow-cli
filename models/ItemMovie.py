@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from tables.TableInterface import TableInterface
 from datetime import datetime
 from models.Trailer import Trailer
 from typing import List, Optional
@@ -271,7 +272,7 @@ class Tag:
         self.display_name = display_name
 
 
-class ItemMovie:
+class ItemMovie(TableInterface):
     metadata: Metadata
     id: str
     slug: str
@@ -348,6 +349,24 @@ class ItemMovie:
         self.regional_availability = regional_availability
         self.source_ad_placement = source_ad_placement
         self.source_ad_placements = source_ad_placements
+
+    def get_overview(self):
+        return self.overview
+
+    def get_date(self) -> str:
+        return self.formatDate()
+
+    def get_time(self) -> str:
+        return self.formatTime()
+
+    def get_imdb(self) -> str:
+        return self.imdbStr()
+
+    def get_classification(self) -> str:
+        return f"[b][white]{self.classification}" if self.classification else 'Who knows'
+
+    def get_trailers(self) -> str:
+        return self.getListTrailers()
 
     def formatDate(self) -> str:
         return str(formatDate(self.released_on).date()) if self.released_on is not None else '-- --'
