@@ -12,6 +12,7 @@ from tables.table_details import table_details
 from tables.table_search import tableSearch
 from tables.people import people
 from tables.sources import columns, source
+from api.models.Result import Result
 
 from utils import BACK, formatDate
 
@@ -29,8 +30,9 @@ def search(name: str,
     if list:
         if luck:
             order = sorted(list, key=lambda x: x.imdbStr(), reverse=True)
-            movie = getMovie(order[0])
-            showMovie(movie)
+            result = getMovie(order[0])            
+            print(result.value)
+            # __showMovie(result.value)
         else:
             console.print(tableSearch(list))
             chooseNumber(list)
@@ -38,7 +40,16 @@ def search(name: str,
         typer.echo("Not Found")
 
 
-def showMovie(movie: ItemMovie):
+def chooseTypes(result: Result):
+    if result.error:
+        console.print(result.error)
+    else:
+        if result.value is ItemMovie:
+            __showMovie(result.value)
+        else:
+           ''     
+
+def __showMovie(movie: ItemMovie):
     tree = Tree(':corn:')
     tree.add(__rich__())
     details = Tree(
@@ -105,8 +116,9 @@ def chooseNumber(list: list[Search], hasError=False):
         return
 
     if item is not None:
-        movie = getMovie(item)
-        showMovie(movie)
+        result = getMovie(item)
+        print(result.value)
+        __showMovie(result.value)
 
 
 def init():

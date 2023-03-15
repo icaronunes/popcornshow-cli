@@ -1,7 +1,7 @@
 
 class Result:
     error: Exception = None
-    value: str
+    value: any
 
     def __init__(self, error = None, value:any = None) -> None:
         self.error = error

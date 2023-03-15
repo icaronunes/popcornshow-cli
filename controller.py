@@ -1,5 +1,5 @@
 from typing import List
-from api.api import search, getMovieApi
+from api.api import search, getMovieApi, getTvShowApi
 from api.models.Result import Result
 from api.models.SearchApi import ContentType
 from models.Search import Search
@@ -20,14 +20,20 @@ def searchReel(query: str, year: int | None, type: str | None) -> list[Search]:
         return []
 
 
-def getMovie(item: Search) -> ItemMovie:
-    result: Result = getMovieApi(
-        item.slug) if item.type == ContentType.M.value else print("criar chamada do show")
-    if result.error is None:
-        itemMovie = ItemMovie(**json.loads(result.value))
-        return itemMovie
-    else:
-        print('Ops...')
+def getMovie(item: Search) -> Result:    
+    match item.type:
+        case ContentType.M.value:
+            movie = getMovieApi(
+                item.slug)
+            if movie.error is None:
+                return Result(value=ItemMovie(**json.loads(movie.value)))
+        case ContentType.S.value:
+            tv = getTvShowApi(item.slug)
+            if tv.error is None:
+                return Result(value=tv.value)
+        case _:
+            result = Result(Exception("Match not Found..."))
+    return Result()
 
 
 def filterByYear(item, year) -> bool:
@@ -49,5 +55,5 @@ def filtersArgs(items: list[any], year: int | None, type: str | None):
         return list(filter(lambda x: (filterByYear(x, year)), items))
     if year == None and type != None:
         return list(filter(lambda x: (filterByType(x, type)), items))
-    if year != None and type != None:        
+    if year != None and type != None:
         return list(filter(lambda x: (filterByType(x, type) and filterByYear(x, year)), items))
