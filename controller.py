@@ -4,6 +4,7 @@ from api.models.Result import Result
 from api.models.SearchApi import ContentType
 from models.Search import Search
 from models.ItemMovie import ItemMovie
+from models.ItemShow import ItemShow
 from utils import formatDate
 from dto import formatList
 import json
@@ -20,7 +21,7 @@ def searchReel(query: str, year: int | None, type: str | None) -> list[Search]:
         return []
 
 
-def getMovie(item: Search) -> Result:    
+def getMovie(item: Search) -> Result:
     match item.type:
         case ContentType.M.value:
             movie = getMovieApi(
@@ -30,7 +31,7 @@ def getMovie(item: Search) -> Result:
         case ContentType.S.value:
             tv = getTvShowApi(item.slug)
             if tv.error is None:
-                return Result(value=tv.value)
+                return Result(value=ItemShow(**json.loads(tv.value)))
         case _:
             result = Result(Exception("Match not Found..."))
     return Result()

@@ -1,29 +1,18 @@
+from utils import formatDate, formatTrailers, formatSources, filterTrailerByService, createUrl as fullUrl
 from dataclasses import dataclass
 from tables.TableInterface import TableInterface
 from datetime import datetime
+from models.Tag import Tag
+from models.Links import Links
+from models.Ios import Ios
+from models.Person import Person
 from models.Trailer import Trailer
-from typing import List, Optional
-from uuid import UUID
-
-from utils import formatDate, formatTrailers, formatSources, filterTrailerByService, createUrl as fullUrl
-
-
-class Links:
-    web: str
-    ios: Optional[str]
-    android: Optional[str]
-
-    def __init__(self, web: str, ios: Optional[str], android: Optional[str]) -> None:
-        self.web = web
-        self.ios = ios
-        self.android = android
-
-
-class Ios:
-    movie_id: str
-
-    def __init__(self, movie_id: str) -> None:
-        self.movie_id = movie_id
+from models.Metadata import Metadata
+from models.SourceAdPlacement import SourceAdPlacement
+from models.ScoreBreakdown import ScoreBreakdown
+from models.ReelgoodScores import ReelgoodScores
+from models.RegionalAvailability import RegionalAvailability
+from typing import Optional
 
 
 class References:
@@ -71,207 +60,6 @@ class Availability:
         self.source_data = source_data
 
 
-class Metadata:
-    ad_data: None
-
-    def __init__(self, ad_data: None) -> None:
-        self.ad_data = ad_data
-
-
-class Person:
-    id: UUID
-    slug: str
-    name: str
-    birthdate: Optional[datetime]
-    has_poster: bool
-    has_square: bool
-    role_type: int
-    role: Optional[str]
-    rank: Optional[int]
-
-    def __init__(self, id: UUID, slug: str, name: str, birthdate: Optional[datetime], has_poster: bool, has_square: bool, role_type: int, role: Optional[str], rank: Optional[int]) -> None:
-        self.id = id
-        self.slug = slug
-        self.name = name
-        self.birthdate = birthdate
-        self.has_poster = has_poster
-        self.has_square = has_square
-        self.role_type = role_type
-        self.role = role
-        self.rank = rank
-
-
-class ReelgoodScores:
-    streamability: float
-    content: float
-    follow_through: None
-    reelgood_rank: int
-    reelgood_popularity: float
-
-    def __init__(self, streamability: float, content: float, follow_through: None, reelgood_rank: int, reelgood_popularity: float) -> None:
-        self.streamability = streamability
-        self.content = content
-        self.follow_through = follow_through
-        self.reelgood_rank = reelgood_rank
-        self.reelgood_popularity = reelgood_popularity
-
-
-class RegionalAvailability:
-    it: List[int]
-    nl: List[int]
-    de: List[int]
-    fr: List[int]
-    es: List[int]
-    gb: List[int]
-    au: List[int]
-    us: List[int]
-
-    def __init__(self, it: List[int], nl: List[int], de: List[int], fr: List[int], es: List[int], gb: List[int], au: List[int], us: List[int]) -> None:
-        self.it = it
-        self.nl = nl
-        self.de = de
-        self.fr = fr
-        self.es = es
-        self.gb = gb
-        self.au = au
-        self.us = us
-
-
-class AlsoWatched:
-    id: UUID
-    content_type: str
-    slug: str
-    title: str
-
-    def __init__(self, id: UUID, content_type: str, slug: str, title: str) -> None:
-        self.id = id
-        self.content_type = content_type
-        self.slug = slug
-        self.title = title
-
-
-class ListingKey:
-    listing_type: str
-    listing_identifier: str
-
-    def __init__(self, listing_type: str, listing_identifier: str) -> None:
-        self.listing_type = listing_type
-        self.listing_identifier = listing_identifier
-
-
-class Rank:
-    rank: int
-    text: str
-    listing_key: ListingKey
-
-    def __init__(self, rank: int, text: str, listing_key: ListingKey) -> None:
-        self.rank = rank
-        self.text = text
-        self.listing_key = listing_key
-
-
-class Content:
-    text: str
-    ranks: List[Rank]
-    also_watched: List[AlsoWatched]
-
-    def __init__(self, text: str, ranks: List[Rank], also_watched: List[AlsoWatched]) -> None:
-        self.text = text
-        self.ranks = ranks
-        self.also_watched = also_watched
-
-
-class Streamability:
-    type: str
-    text: str
-
-    def __init__(self, type: str, text: str) -> None:
-        self.type = type
-        self.text = text
-
-
-class ScoreBreakdown:
-    streamability: List[Streamability]
-    content: Content
-
-    def __init__(self, streamability: List[Streamability], content: Content) -> None:
-        self.streamability = streamability
-        self.content = content
-
-
-class Creative:
-    id: int
-    campaign_name: str
-    campaign_id: int
-    advertiser_id: int
-    ad_creative_type_id: int
-    source_id: str
-    image_override: None
-    external_data: None
-    links: None
-    on_services: bool
-
-    def __init__(self, id: int, campaign_name: str, campaign_id: int, advertiser_id: int, ad_creative_type_id: int, source_id: str, image_override: None, external_data: None, links: None, on_services: bool) -> None:
-        self.id = id
-        self.campaign_name = campaign_name
-        self.campaign_id = campaign_id
-        self.advertiser_id = advertiser_id
-        self.ad_creative_type_id = ad_creative_type_id
-        self.source_id = source_id
-        self.image_override = image_override
-        self.external_data = external_data
-        self.links = links
-        self.on_services = on_services
-
-
-class SourceAdPlacement:
-    placement_type: str
-    source_id: str
-    source_name: str
-    access_type: int
-    image_url: None
-    title_copy: str
-    short_deal_copy: str
-    long_deal_copy: str
-    additional_copy: None
-    button_call_to_action: str
-    landing_page_link: None
-    use_deeplink: bool
-    deeplink: str
-    inline_position: str
-    min_price: float
-    creative: Creative
-    links: Links
-
-    def __init__(self, placement_type: str, source_id: str, source_name: str, access_type: int, image_url: None, title_copy: str, short_deal_copy: str, long_deal_copy: str, additional_copy: None, button_call_to_action: str, landing_page_link: None, use_deeplink: bool, deeplink: str, inline_position: str, min_price: float, creative: Creative, links: Links) -> None:
-        self.placement_type = placement_type
-        self.source_id = source_id
-        self.source_name = source_name
-        self.access_type = access_type
-        self.image_url = image_url
-        self.title_copy = title_copy
-        self.short_deal_copy = short_deal_copy
-        self.long_deal_copy = long_deal_copy
-        self.additional_copy = additional_copy
-        self.button_call_to_action = button_call_to_action
-        self.landing_page_link = landing_page_link
-        self.use_deeplink = use_deeplink
-        self.deeplink = deeplink
-        self.inline_position = inline_position
-        self.min_price = min_price
-        self.creative = creative
-        self.links = links
-
-
-class Tag:
-    slug: str
-    display_name: str
-
-    def __init__(self, slug: str, display_name: str) -> None:
-        self.slug = slug
-        self.display_name = display_name
-
-
 class ItemMovie(TableInterface):
     metadata: Metadata
     id: str
@@ -284,7 +72,7 @@ class ItemMovie(TableInterface):
     runtime: int
     released_on: datetime
     trailer: Trailer
-    trailers: List[Trailer]
+    trailers: list[Trailer]
     language: str
     has_poster: bool
     has_backdrop: bool
@@ -297,21 +85,21 @@ class ItemMovie(TableInterface):
     watchlisted: bool
     seen: bool
     user_lists: None
-    sources: List[str]
+    sources: list[str]
     on_free: bool
     on_rent_purchase: bool
-    genres: List[int]
-    tags: List[Tag]
-    countries: List[str]
-    availability: List[Availability]
-    people: List[Person]
+    genres: list[int]
+    tags: list[Tag]
+    countries: list[str]
+    availability: list[Availability]
+    people: list[Person]
     score_breakdown: ScoreBreakdown
     reelgood_scores: ReelgoodScores
     regional_availability: RegionalAvailability
     source_ad_placement: SourceAdPlacement
-    source_ad_placements: List[SourceAdPlacement]
+    source_ad_placements: list[SourceAdPlacement]
 
-    def __init__(self, metadata: Metadata, id: UUID, slug: str, title: str, overview: str, tagline: str, reelgood_synopsis: str, classification: str, runtime: int, released_on: datetime, trailer: Trailer, trailers: List[Trailer], language: str, has_poster: bool, has_backdrop: bool, imdb_rating: float, imdb_votes: int, rt_critics_rating: None, rt_audience_rating: int, last_modified_at: datetime, user_rating: None, watchlisted: bool, seen: bool, user_lists: None, sources: List[str], on_free: bool, on_rent_purchase: bool, genres: List[int], tags: List[Tag], countries: List[str], availability: List[Availability], people: List[Person], score_breakdown: ScoreBreakdown, reelgood_scores: ReelgoodScores, regional_availability: RegionalAvailability, source_ad_placement: SourceAdPlacement, source_ad_placements: List[SourceAdPlacement]) -> None:
+    def __init__(self, metadata: Metadata, id: str, slug: str, title: str, overview: str, tagline: str, reelgood_synopsis: str, classification: str, runtime: int, released_on: datetime, trailer: Trailer, trailers: list[Trailer], language: str, has_poster: bool, has_backdrop: bool, imdb_rating: float, imdb_votes: int, rt_critics_rating: None, rt_audience_rating: int, last_modified_at: datetime, user_rating: None, watchlisted: bool, seen: bool, user_lists: None, sources: list[str], on_free: bool, on_rent_purchase: bool, genres: list[int], tags: list[Tag], countries: list[str], availability: list[Availability], people: list[Person], score_breakdown: ScoreBreakdown, reelgood_scores: ReelgoodScores, regional_availability: RegionalAvailability, source_ad_placement: SourceAdPlacement, source_ad_placements: list[SourceAdPlacement]) -> None:
         self.metadata = metadata
         self.id = id
         self.slug = slug
