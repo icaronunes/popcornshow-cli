@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Any
-from utils import createUrl as fullUrl, formatTrailers, filterTrailerByService
+from utils import createUrl as fullUrl, formatTrailers, filterTrailerByService, formatDate
 from tables.TableInterface import TableInterface
 from models.Person import Person
 from models.SourceAdPlacement import SourceAdPlacement
@@ -211,6 +211,7 @@ class ItemShow(TableInterface):
         self.has_new = has_new    
         self.recommended_episode = recommended_episode
 
+    def get_number_seasons(self): return str(self.season_count)
 
     def createUrl(self):
         return fullUrl('s', self.slug)
@@ -219,7 +220,7 @@ class ItemShow(TableInterface):
         return self.overview
     
     def get_date(self) -> str:
-        return self.released_on
+        return self.formatDate()
     
     def get_time(self) -> str:
         return '-- --'
@@ -228,7 +229,7 @@ class ItemShow(TableInterface):
        return str(self.imdb_rating)
 
     def get_classification(self) -> str:
-        return f"[b][white]{self.classification}" if self.classification else 'Who knows'
+        return f"[b][white]{self.classification}" if self.classification else 'Who knows?'
 
     def get_trailers(self) -> str:
         return self.getListTrailers()
@@ -238,3 +239,5 @@ class ItemShow(TableInterface):
             self.trailers.append(self.trailer)
         return formatTrailers(filterTrailerByService(self.trailers))
     
+    def formatDate(self) -> str:
+        return str(formatDate(self.released_on).date()) if self.released_on is not None else '-- --'

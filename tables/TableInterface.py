@@ -1,4 +1,6 @@
 class TableInterface:
+    def get_number_seasons() -> str:
+        pass
     def get_overview() -> str:
         pass
     def get_date() -> str:

@@ -138,6 +138,8 @@ class ItemMovie(TableInterface):
         self.source_ad_placement = source_ad_placement
         self.source_ad_placements = source_ad_placements
 
+    def get_number_seasons(self): return '0'
+
     def get_overview(self):
         return self.overview
 

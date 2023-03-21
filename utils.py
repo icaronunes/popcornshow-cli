@@ -24,7 +24,6 @@ def createUrl(type: str, url: str) -> str:
     else:
         return URL_BASE + 'show' + '/' + url
 
-
 def formatType(type: chr) -> str:
     if (type == 'm'):
         return 'Movie'
