@@ -21,16 +21,17 @@ def searchReel(query: str, year: int | None, type: str | None) -> list[Search]:
         return []
 
 
-def getMovie(item: Search) -> Result:
+def transformItem(item: Search) -> Result:
     match item.type:
         case ContentType.M.value:
+            print("movie")
             movie = getMovieApi(
                 item.slug)
             if movie.error is None:
                 return Result(value=ItemMovie(**json.loads(movie.value)))
-        case ContentType.S.value:
+        case ContentType.S.value:            
             tv = getTvShowApi(item.slug)
-            if tv.error is None:
+            if tv.error is None:                
                 return Result(value=ItemShow(**json.loads(tv.value)))
         case _:
             result = Result(Exception("Match not Found..."))

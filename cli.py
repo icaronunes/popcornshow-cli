@@ -5,7 +5,7 @@ from rich.markdown import Markdown
 from rich.table import Table
 from rich.panel import Panel
 from rich.tree import Tree
-from controller import getMovie, searchReel
+from controller import transformItem, searchReel
 from models.ItemMovie import ItemMovie
 from models.ItemShow import ItemShow
 from models.Search import Search
@@ -33,10 +33,8 @@ def search(name: str,
     if list:
         if luck:
             order = sorted(list, key=lambda x: x.imdbStr(), reverse=True)
-            result = getMovie(order[0])            
-            # print(result.value)
-            __showMovie(result.value)
-            # __showTvshow(result.value)
+            result = transformItem(order[0])
+            chooseTypes(result)
         else:
             console.print(tableSearch(list))
             chooseNumber(list)
@@ -48,12 +46,18 @@ def chooseTypes(result: Result):
     if result.error:
         console.print(result.error)
     else:
-        if result.value is ItemMovie:
-            __showMovie(result.value)
-        elif result.value is ItemShow:
-            __showTvshow(result.value)
+        fillByType(result)
+
+
+def fillByType(result: Result):
+    if isinstance(result.value, ItemMovie):
+        __showMovie(result.value)
+    elif isinstance(result.value, ItemShow):
+        __showTvshow(result.value)
+
 
 def __showTvshow(show: ItemShow):
+
     tree = Tree(':corn:')
     tree.add(__rich__())
     details = Tree(
@@ -64,15 +68,16 @@ def __showTvshow(show: ItemShow):
     person.add(people(show.people))
 
     tree.add(details)
-    # if person.children.__len__() > 0:
-    #     tree.add(person)
+    if person.children.__len__() > 0:
+        tree.add(person)
     # if show.availability:
     #     tv = Tree(f':movie_camera: Where to Watch: {show.title}')
     #     tv.add(columns(show.availability),
     #            expanded=True, highlight=False)
     #     tree.add(tv)
-    # tree.add(__footer__(show))
-    console.print(tree)    
+    tree.add(__footer__(show))
+    console.print(tree)
+
 
 def __showMovie(movie: ItemMovie):
     tree = Tree(':corn:')
@@ -87,11 +92,11 @@ def __showMovie(movie: ItemMovie):
     tree.add(details)
     if person.children.__len__() > 0:
         tree.add(person)
-    # if movie.availability:
-    #     tv = Tree(f':movie_camera: Where to Watch: {movie.title}')
-    #     tv.add(columns(movie.availability),
-    #            expanded=True, highlight=False)
-    #     tree.add(tv)
+    if movie.availability:
+        tv = Tree(f':movie_camera: Where to Watch: {movie.title}')
+        tv.add(columns(movie.availability),
+               expanded=True, highlight=False)
+        tree.add(tv)
     tree.add(__footer__(movie))
     console.print(tree)
 
@@ -107,13 +112,13 @@ def __rich__() -> Panel:
     return Panel(grid, style="red1 on black")
 
 
-def __footer__(movie: ItemMovie) -> Panel:
+def __footer__(item: ItemMovie | ItemShow) -> Panel:
     grid = Table.grid(expand=True)
     grid.add_column(justify="left", ratio=3)
     grid.add_column(justify="right", ratio=1)
-    if movie.score_breakdown['content']['text']:
+    if item.score_breakdown['content']['text']:
         grid.add_row(
-            f"[orange1][b]{movie.score_breakdown['content']['text']}",
+            f"[orange1][b]{item.score_breakdown['content']['text']}",
             f"[b][link=https://play.google.com/store/apps/details?id=br.com.icaro.filme][yellow]App Android => [/link]",
         )
     return Panel(grid, style="red1 on black")
@@ -141,9 +146,9 @@ def chooseNumber(list: list[Search], hasError=False):
         return
 
     if item is not None:
-        result = getMovie(item)
+        result = transformItem(item)
         print(result.value)
-        __showMovie(result.value)
+        fillByType(result)
 
 
 def init():
