@@ -61,7 +61,7 @@ def __showTvshow(show: ItemShow):
     tree = Tree(':corn:')
     tree.add(__rich__())
     details = Tree(
-        f":blue_book: [b][blue]Details - {show.title} {formatDate(show.released_on).year}[/b] - :link: [blue][link={show.createUrl()}] Details in Reelgood.com[/link]", expanded=True)
+        f":blue_book: [b][blue]Details - {show.title} {formatDate(show.released_on).year}[/b] - :link: [blue][link={show.createUrl()}]Details in Reelgood.com[/link]", expanded=True)
     details.add(table_details_show(show), highlight=False)
 
     person = Tree(":busts_in_silhouette:[bold][purple] People")
@@ -83,7 +83,7 @@ def __showMovie(movie: ItemMovie):
     tree = Tree(':corn:')
     tree.add(__rich__())
     details = Tree(
-        f":blue_book:[blue][b] Details - {movie.title} {formatDate(movie.released_on).year}[/b] - :link: [blue][link={movie.createUrl()}] Details in Reelgood.com[/link]", expanded=True)
+        f":blue_book:[blue][b] Details - {movie.title} {formatDate(movie.released_on).year}[/b] - :link: [blue][link={movie.createUrl()}]Details in Reelgood.com[/link]", expanded=True)
     details.add(table_details(movie), highlight=False)
 
     person = Tree(":busts_in_silhouette:[bold][purple] People")
