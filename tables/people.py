@@ -14,7 +14,12 @@ works = {
     2: 'Producer',
     3: 'Executive Producer',
     4: 'Writer',
-    5: 'Composer'
+    5: 'Composer',
+    6: 'Creator',
+    7: '-- -',
+    8: '-- -',
+    9: '-- -',
+    10: '-- -'
 }
 
 
@@ -28,11 +33,11 @@ def people(peoples: list[Person]) -> Columns:
 
 
 def createProduction(person: Person) -> str:
-    return f"[b][green]{person['name']}[/b]\n[red1][i]{works[person['role_type']]}[/i]\n{__create_link(person)}"
+    return f"[b][green]{person['name']}[/b]\n[red1][i]{works[person['role_type']]}[/i]\n:link: {__create_link(person)}"
 
 
 def createActor(person: Person) -> str:
-    return f"[b][purple]{person['name']}[/b]\n[red1][i]{person['role']}[/i]\n{__create_link(person)}"
+    return f"[b][purple]{person['name']}[/b]\n[red1][i]{person['role']}[/i]\n:link: {__create_link(person)}"
 
 
 def __create_link(person: Person) -> str:

@@ -2,18 +2,23 @@ from rich.tree import Tree
 from rich.columns import Columns
 from rich.panel import Panel
 from utils import formatSource
+from models.TVShowEpisode import TVShowEpisode
 
 from models.ItemMovie import Availability
+from models.Seasons import Availability as AvailabilityShow, Season
 
 
 def columns(availabilitys: list[Availability]) -> Columns:
     return Columns([Panel(panel, expand=True, safe_box=True) for panel in source(availabilitys)])
 
 
+def columnsSeasons(episodes: list[TVShowEpisode], season: list[Season]) -> Columns:
+    return Columns([Panel(panel, expand=True, safe_box=True) for panel in sourceSeason(episodes, season)])
+
+
 def source(availabilitys: list[Availability]) -> list[Tree]:
     result = []
     for availability in availabilitys:
-
 
         source = Tree(__getTitle(availability=availability))
 
@@ -30,11 +35,57 @@ def source(availabilitys: list[Availability]) -> list[Tree]:
     return result
 
 
+def sourceSeason(episodes: list[TVShowEpisode], seasons: list[Season]) -> list[Tree]:
+    result = []
+    for season in seasons:
+        ep = first_ep_for_season(episodes, season)
+        source = Tree(__getListSourceForSeason(
+            ep, season['number'], season['availability']))
+        result.append(source)
+    return result
+
+
+def first_ep_for_season(episodes: list[TVShowEpisode], season: Season) -> TVShowEpisode | None:
+
+    for eps in season['episodes']:
+        if eps:
+            try:
+                ep = episodes[eps]
+                if ep['number'] == 1:
+                    return ep
+            except:
+                return None
+        else:
+            return None
+
+
 def __getTitle(availability: Availability) -> str:
     if 'source_data' in availability and 'web_link' in availability['source_data'] and 'source_name' in availability:
         return f"[b]{formatSource(availability['source_name'])}[/b] {__minAndMax(availability)} :link: [i][blue]{availability['source_data']['web_link']}[/i]"
     else:
         return f"[b]{availability['source_name']}[/b]"
+
+
+def __getListSourceForSeason(ep: TVShowEpisode, numberSeason: int, availability: AvailabilityShow) -> str:
+    result = f"Season {numberSeason} Availability | "
+    for source in availability['sources']:
+        link = __fistLink(ep, source['source_name'])
+        result = result + __createLinkForSeason(source['source_name'], link) + ' '
+    return result
+
+
+def __fistLink(ep: TVShowEpisode, source_name: str) -> str:
+    try:
+        for av in ep['availability']:
+            if av['source_name'] == source_name:
+                return av['source_data']['web_link']
+        return ''
+    except:
+        return ''
+
+
+def __createLinkForSeason(source_name: str, link: str) -> str:
+    return f":link: [bold blue][link={link}]{formatSource(source_name)}[/link][/bold blue]"
 
 
 def __minAndMax(availability: Availability) -> str:

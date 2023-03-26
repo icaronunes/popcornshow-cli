@@ -66,7 +66,7 @@ def formatTrailers(trailers: list[Trailer]) -> str:
     values = set(map(lambda x: x['key'], trailers))
     for index, value in enumerate(values):
         result = result + \
-            f"[bold blue][link=https://youtu.be/{value}]Trailer - {index + 1}[/link][/bold blue]\n"
+            f":link: [bold blue][link=https://youtu.be/{value}]Trailer - {index + 1}[/link][/bold blue]\n"
     return result
 
 def filterTrailerByService(trailers: list[Trailer], service='youtube') -> list[Trailer]:

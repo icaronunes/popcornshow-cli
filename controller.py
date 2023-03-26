@@ -23,8 +23,7 @@ def searchReel(query: str, year: int | None, type: str | None) -> list[Search]:
 
 def transformItem(item: Search) -> Result:
     match item.type:
-        case ContentType.M.value:
-            print("movie")
+        case ContentType.M.value:    
             movie = getMovieApi(
                 item.slug)
             if movie.error is None:
