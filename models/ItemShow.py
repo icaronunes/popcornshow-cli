@@ -217,7 +217,10 @@ class ItemShow(TableInterface):
     def getListTrailers(self) -> str:
         if self.trailer is not None:
             self.trailers.append(self.trailer)
-        return formatTrailers(filterTrailerByService(self.trailers))
+            return formatTrailers(filterTrailerByService(self.trailers))
+        else:
+            search = self.slug.replace('-', '+')
+            return f"[bold blue][link=https://www.youtube.com/results?search_query={search}]Search Youtube[/link]"
 
     def formatDate(self) -> str:
         return str(formatDate(self.released_on).date()) if self.released_on is not None else '-- --'

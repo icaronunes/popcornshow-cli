@@ -171,7 +171,10 @@ class ItemMovie(TableInterface):
     def getListTrailers(self) -> str:
         if self.trailer is not None:
             self.trailers.append(self.trailer)
-        return formatTrailers(filterTrailerByService(self.trailers))
+            return formatTrailers(filterTrailerByService(self.trailers))
+        else:
+            search = self.slug.replace('-', '+')
+            return f"[bold blue][link=https://www.youtube.com/results?search_query={search}]Search Youtube[/link]"
 
     def formatSources(self) -> str:
         values = list(map(lambda x: x['source_name'], self.availability))
