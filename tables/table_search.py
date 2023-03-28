@@ -7,9 +7,9 @@ console = Console()
 
 searchType = [
     ':id: Index',
-    'Title',
+    ':blue_book: Title',
     ':date: Release',
-    'Type',
+    ':flags: Type',
     ':100: IMDB rate',
     ':movie_camera: Online',
     ':link: Details'
