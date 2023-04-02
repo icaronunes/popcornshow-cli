@@ -70,12 +70,13 @@ def __showTvshow(show: ItemShow):
     tree.add(details)
     if person.children.__len__() > 0:
         tree.add(person)
-    if show.seasons:        
-        tv = Tree(f':movie_camera: [red][b]Where to Watch: {show.title} [/red]| [yellow]With Season {show.seasons.__len__()}')
+    if show.seasons:
+        tv = Tree(
+            f':movie_camera: [red][b]Where to Watch: {show.title} [/red]| [yellow]With Season {show.seasons.__len__()}')
         tv.add(columnsSeasons(show.episodes, reversed(show.seasons)),
                expanded=True, highlight=False)
         tree.add(tv)
-    # tree.add(__footer__(show))
+    tree.add(__footer__(show))
     console.print(tree)
 
 
