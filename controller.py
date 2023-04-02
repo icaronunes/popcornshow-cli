@@ -1,4 +1,3 @@
-from typing import List
 from api.api import search, getMovieApi, getTvShowApi
 from api.models.Result import Result
 from api.models.SearchApi import ContentType
@@ -16,25 +15,27 @@ def searchReel(query: str, year: int | None, type: str | None) -> list[Search]:
         objJson = json.loads(result.value)
         listSearch = filtersArgs(objJson['items'], year, type)
         return formatList(listSearch)
-    else:
-        print('Ops...')
+    else:        
         return []
 
 
 def transformItem(item: Search) -> Result:
     match item.type:
-        case ContentType.M.value:    
+        case ContentType.M.value:
             movie = getMovieApi(
                 item.slug)
             if movie.error is None:
                 return Result(value=ItemMovie(**json.loads(movie.value)))
-        case ContentType.S.value:            
+            else:
+                return Result(Exception("Match not Found..."))
+        case ContentType.S.value:
             tv = getTvShowApi(item.slug)
-            if tv.error is None:                
+            if tv.error is None:
                 return Result(value=ItemShow(**json.loads(tv.value)))
+            else:
+                return Result(Exception("Match not Found..."))
         case _:
-            result = Result(Exception("Match not Found..."))
-    return Result()
+            return Result(Exception("Match not Found..."))
 
 
 def filterByYear(item, year) -> bool:
