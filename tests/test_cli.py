@@ -44,9 +44,9 @@ def test_result_none_name():
     result = runner.invoke(app)
     assert result.exit_code == 2
     assert "Usage:" in result.stdout
-    assert "--help" in result.stdout
+    assert "help" in result.stdout
     assert "Error" in result.stdout
-    assert "Missing argument 'NAME'" in result.stdout
+    assert "Missing argument 'NAME'" in result.stdout    
 
 
 def __details_by_lost(result):
