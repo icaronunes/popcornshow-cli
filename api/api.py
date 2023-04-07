@@ -2,9 +2,7 @@ import requests
 from api.models.Result import Result
 
 paramsDefault = {'page': '1', 'pageSize': '10',
-                 'region': 'us', 'take': '50', 'terms': ''}
-
-
+                 'region': 'us', 'take': '10', 'terms': ''}
 def search(query: str) -> Result:
     paramsDefault['terms'] = query
     result = requests.get(
