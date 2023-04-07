@@ -15,3 +15,7 @@ plugins:
           paths: [api, models, tables, cli]
           import:
             - https://docs.python-requests.org/en/master/objects.inv
+  - search
+
+markdown_extensions:  
+  - pymdownx.emoji:  
