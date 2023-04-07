@@ -1,0 +1,17 @@
+site_name: PopCorn Show Cli 
+repo_url: https://github.com/icaronunes/popcornshow-cli
+repo_name: icaronunes/popcornshow-cli
+edit_uri: tree/main/docs
+
+theme: 
+  name: dracula
+  favicon: assets/favico.ico  
+  locale: pt_BR
+
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [api, models, tables, cli]
+          import:
+            - https://docs.python-requests.org/en/master/objects.inv
