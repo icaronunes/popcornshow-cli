@@ -31,7 +31,11 @@ jobs:
       - name: PyTest
         run: |
           # python ./cli.py 
-          pytest \tests -s -v
+          pytest tests --cov=tests --cov-report=html
+      - name:
+        uses: codecov/codecov-action@v3
+          # with:
+          #   token: ${{ CODECOV_TOKEN}}  
                     
 
 
