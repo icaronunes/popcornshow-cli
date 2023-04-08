@@ -1,9 +1,11 @@
-# :corn: Bem-Vindo ao PopCorn Show Cli :corn:
-## Para a versão Android visite [play.google.com/popcornshow](https://play.google.com/store/apps/details?id=br.com.icaro.filme) ![alt text](https://firebasestorage.googleapis.com/v0/b/livro-android-1327.appspot.com/o/ic_launcher.png?alt=media&token=46723f6c-331e-4ae9-a5c2-1b930d42aca7)
+# Bem-Vindo ao PopCorn Show Cli
+:corn: :corn: :corn: :corn: :corn: :corn: :corn: :corn: :corn: :corn:
+## Para a versão Android visite: [play.google.com/popcornshow](https://play.google.com/store/apps/details?id=br.com.icaro.filme) ![alt text](assets/popcorn.png)
+
 
 
 ## Instalação
-```bash
+``` bash
  git clone https://github.com/icaronunes/popcornshow-cli
  cd popcornshow-cli
  pip install -r requirements.txt
