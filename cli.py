@@ -5,17 +5,18 @@ from rich.markdown import Markdown
 from rich.table import Table
 from rich.panel import Panel
 from rich.tree import Tree
-from controller import transformItem, searchReel
+from controller import transformItem, searchReel, person_reel
 from models.ItemMovie import ItemMovie
 from models.ItemShow import ItemShow
 from models.Search import Search
-from tables.table_details import table_details
+from tables.table_details import table_details, table_details_person
 from tables.tableDetailsShow import table_details_show
 from tables.table_search import tableSearch
-from tables.people import people
+from tables.people import people, people_biography, works
 
 from tables.sources import columns, columnsSeasons
 from api.models.Result import Result
+from api.models.PersonApi import PersonApi
 
 from utils import BACK, formatDate
 
@@ -40,6 +41,15 @@ def search(name: str,
             chooseNumber(list)
     else:
         typer.echo("Not Found")
+
+
+@app.command('person')
+def testperson():
+    result: Result = person_reel('babylon-2022')
+    if result.error is None:
+        __showPerson(result.value)
+    else:
+        console.print(result.error)
 
 
 def chooseTypes(result: Result):
@@ -102,6 +112,27 @@ def __showMovie(movie: ItemMovie):
     console.print(tree)
 
 
+def __showPerson(person: PersonApi):
+    tree = Tree('')
+    tree.add(__rich__())
+    print(person)
+    details = Tree('')
+    # f":blue_book:[blue][b] Details - {person['name']} {formatDate(person.released_on).year if formatDate(movie.released_on) != None else '-- --'}[/b] - :link: [blue][link=person.createUrl()]Details in Reelgood.com[/link]", expanded=True)
+    details.add(table_details_person(person), highlight=False)
+    tree.add(details)
+    tree.add(people_biography(person.biography))
+    tree.add(works(person.initial_credits))
+    # if pers   on.children.__len__() > 0:
+    #     tree.add(person)
+    # if movie.availability:
+    #     tv = Tree(f':movie_camera:[red][b] Where to Watch: {movie.title}')
+    #     tv.add(columns(movie.availability),
+    #            expanded=True, highlight=False)
+    #     tree.add(tv)
+    # tree.add(__footer__(person))
+    console.print(tree)
+
+
 def __rich__() -> Panel:
     grid = Table.grid(expand=True)
     grid.add_column(justify="center", ratio=1)
@@ -129,7 +160,7 @@ def chooseNumber(list: list[Search], hasError=False):
     item: None
     number = typer.prompt(
         f"For details, write a number between 1 and {list.__len__()}")
-    if (hasError and number == BACK):
+    if (hasError or number == BACK):
         return
 
     try:

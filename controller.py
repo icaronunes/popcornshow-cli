@@ -1,6 +1,7 @@
-from api.api import search, getMovieApi, getTvShowApi
+from api.api import search, getMovieApi, getTvShowApi, get_person_details
 from api.models.Result import Result
 from api.models.SearchApi import ContentType
+from api.models.PersonApi import PersonApi
 from models.Search import Search
 from models.ItemMovie import ItemMovie
 from models.ItemShow import ItemShow
@@ -15,21 +16,28 @@ def searchReel(query: str, year: int | None, type: str | None) -> list[Search]:
         objJson = json.loads(result.value)
         listSearch = filtersArgs(objJson['items'], year, type)
         return formatList(listSearch)
-    else:        
+    else:
         return []
 
+
+def person_reel(id) -> Result:
+    result = get_person_details(id)
+    if result.error is None:        
+        return Result(value=PersonApi(**json.loads(result.value)))
+    else:
+        return Result(Exception("Match not Found..."))
 
 def transformItem(item: Search) -> Result:
     match item.type:
         case ContentType.M.value:
-            movie = getMovieApi(
+            movie=getMovieApi(
                 item.slug)
             if movie.error is None:
                 return Result(value=ItemMovie(**json.loads(movie.value)))
             else:
                 return Result(Exception("Match not Found..."))
         case ContentType.S.value:
-            tv = getTvShowApi(item.slug)
+            tv=getTvShowApi(item.slug)
             if tv.error is None:
                 return Result(value=ItemShow(**json.loads(tv.value)))
             else:

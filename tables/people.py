@@ -6,6 +6,7 @@ from rich.table import Table
 from rich.tree import Tree
 from rich import print
 from models.ItemMovie import Person
+from api.models.SearchApi import SearchApi, Item
 from rich.console import Console
 
 works = {
@@ -42,3 +43,14 @@ def createActor(person: Person) -> str:
 
 def __create_link(person: Person) -> str:
     return f"[blue1][link=https://reelgood.com/person/{person['slug']}]For Details[/link]"
+
+
+def people_biography(biography: str) -> Panel:   
+    return Panel(biography)
+
+
+def works(list: list[Item] | None) -> Columns:
+    def chooseType(item) -> str:
+        return f"{item['title']} \n{item['released_on']}\n{item['imdb_rating']}"    
+    directory = [Panel(chooseType(item), expand=True) for item in list]
+    return Columns(directory)

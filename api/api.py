@@ -170,3 +170,11 @@ def getTvShowApi(id: str) -> Result:
         return Result(value=result.text)
     else:
         return Result(error=Exception(result.content))
+
+
+def get_person_details(id) -> Result:
+    result = requests.get(f"https://api.reelgood.com/v3.0/content/people/brad-pitt-1963?availability=all&content_kind=both&hide_seen=true&hide_tracked=true&hide_watchlisted=true&imdb_end=10&imdb_start=0&region=us&rg_end=100&rg_start=0&skip=0&sort=0&take=35&year_end=2023&year_start=1900")    
+    if result.status_code == requests.codes.ok:
+        return Result(value=result.text)
+    else:
+        return Result(error=Exception(result.content))
