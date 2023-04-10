@@ -15,13 +15,6 @@ topTable = [
     ':movie_camera: Trailers'
 ]
 
-topTablePerson = [
-    'Name',
-    'Birth date',
-    'Birth place',
-    'Biography'
-]
-
 table = Table(
     highlight=True,
     show_header=True,
@@ -71,16 +64,14 @@ def __tableItemPerson(
         name='Kiefer Sutherland',
         birthdate='1966-12-21',
         birthplace='Paddington, London, England, UK',
-        deathdate='1966-12-21',
-        home='https:www.laele.com'
+        deathdate='1966-12-21'
 ) -> Table:
 
     table.add_row(
         name,
         birthdate,
         birthplace,
-        deathdate,
-        home
+        deathdate        
     )
     return table
 
@@ -89,8 +80,7 @@ topTablePerson = [
     'Name',
     'Birth date',
     'Birth place',
-    'Death date',
-    'Home'
+    'Death date'
 ]
 
 
@@ -102,7 +92,6 @@ def table_details_person(item) -> Table:
         name=item.name,
         birthdate=item.birthdate,
         birthplace=item.birthplace,
-        deathdate=item.deathdate,
-        home=item.homepage
+        deathdate=item.deathdate    
     )
     return table

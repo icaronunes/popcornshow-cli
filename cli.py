@@ -1,7 +1,6 @@
 from datetime import datetime
 import typer
 from rich.console import Console
-from rich.markdown import Markdown
 from rich.table import Table
 from rich.panel import Panel
 from rich.tree import Tree
@@ -12,7 +11,7 @@ from models.Search import Search
 from tables.table_details import table_details, table_details_person
 from tables.tableDetailsShow import table_details_show
 from tables.table_search import tableSearch
-from tables.people import people, people_biography, works
+from tables.people import people, people_biography, person_media
 
 from tables.sources import columns, columnsSeasons
 from api.models.Result import Result
@@ -45,7 +44,7 @@ def search(name: str,
 
 @app.command('person')
 def testperson():
-    result: Result = person_reel('babylon-2022')
+    result: Result = person_reel('damien-chazelle-1985')
     if result.error is None:
         __showPerson(result.value)
     else:
@@ -115,21 +114,10 @@ def __showMovie(movie: ItemMovie):
 def __showPerson(person: PersonApi):
     tree = Tree('')
     tree.add(__rich__())
-    print(person)
-    details = Tree('')
-    # f":blue_book:[blue][b] Details - {person['name']} {formatDate(person.released_on).year if formatDate(movie.released_on) != None else '-- --'}[/b] - :link: [blue][link=person.createUrl()]Details in Reelgood.com[/link]", expanded=True)
-    details.add(table_details_person(person), highlight=False)
-    tree.add(details)
+    tree.add(table_details_person(person), highlight=False)
     tree.add(people_biography(person.biography))
-    tree.add(works(person.initial_credits))
-    # if pers   on.children.__len__() > 0:
-    #     tree.add(person)
-    # if movie.availability:
-    #     tv = Tree(f':movie_camera:[red][b] Where to Watch: {movie.title}')
-    #     tv.add(columns(movie.availability),
-    #            expanded=True, highlight=False)
-    #     tree.add(tv)
-    # tree.add(__footer__(person))
+    tree.add(person_media(person.initial_credits))
+    tree.add(__footer_person__(person))
     console.print(tree)
 
 
@@ -153,6 +141,23 @@ def __footer__(item: ItemMovie | ItemShow) -> Panel:
             f"[orange1][b]{item.score_breakdown['content']['text']}",
             f"[b][link=https://play.google.com/store/apps/details?id=br.com.icaro.filme][yellow]App Android => [/link]",
         )
+    return Panel(grid, style="red1 on black")
+
+
+def __footer_person__(item: PersonApi) -> Panel:
+    grid = Table.grid(expand=True)
+    if item.homepage:
+        grid.add_column(justify="left", ratio=3)
+        grid.add_column(justify="right", ratio=1)
+        link = f"[b][orange1]:link:[link={item.homepage}] Site"
+        grid.add_row(link,
+                     f"[b][link=https://play.google.com/store/apps/details?id=br.com.icaro.filme][yellow]App Android => [/link]",
+                     )
+    else:
+        grid.add_column(justify="right", ratio=1)
+        grid.add_row('',
+                     f"[b][link=https://play.google.com/store/apps/details?id=br.com.icaro.filme][yellow]App Android => [/link]",
+                     )
     return Panel(grid, style="red1 on black")
 
 

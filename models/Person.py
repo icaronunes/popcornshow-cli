@@ -10,7 +10,7 @@ class Person:
     has_poster: bool
     has_square: bool
     role_type: int
-    role: Optional[str]
+    role: Optional[str|None]
     rank: Optional[int]
 
     def __init__(self, id: int, slug: str, name: str, birthdate: Optional[datetime], has_poster: bool, has_square: bool, role_type: int, role: Optional[str], rank: Optional[int]) -> None:
