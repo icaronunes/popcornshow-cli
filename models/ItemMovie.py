@@ -98,8 +98,10 @@ class ItemMovie(TableInterface):
     regional_availability: RegionalAvailability
     source_ad_placement: SourceAdPlacement
     source_ad_placements: list[SourceAdPlacement]
+    rating_stats: any
+    reviews_count: int
 
-    def __init__(self, metadata: Metadata, id: str, slug: str, title: str, overview: str, tagline: str, reelgood_synopsis: str, classification: str, runtime: int, released_on: datetime, trailer: Trailer, trailers: list[Trailer], language: str, has_poster: bool, has_backdrop: bool, imdb_rating: float, imdb_votes: int, rt_critics_rating: None, rt_audience_rating: int, last_modified_at: datetime, user_rating: None, watchlisted: bool, seen: bool, user_lists: None, sources: list[str], on_free: bool, on_rent_purchase: bool, genres: list[int], tags: list[Tag], countries: list[str], availability: list[Availability], people: list[Person], score_breakdown: ScoreBreakdown, reelgood_scores: ReelgoodScores, regional_availability: RegionalAvailability, source_ad_placement: SourceAdPlacement, source_ad_placements: list[SourceAdPlacement]) -> None:
+    def __init__(self, metadata: Metadata, id: str, slug: str, title: str, overview: str, tagline: str, reelgood_synopsis: str, classification: str, runtime: int, released_on: datetime, trailer: Trailer, trailers: list[Trailer], language: str, has_poster: bool, has_backdrop: bool, imdb_rating: float, imdb_votes: int, rt_critics_rating: None, rt_audience_rating: int, last_modified_at: datetime, user_rating: None, watchlisted: bool, seen: bool, user_lists: None, sources: list[str], on_free: bool, on_rent_purchase: bool, genres: list[int], tags: list[Tag], countries: list[str], availability: list[Availability], people: list[Person], score_breakdown: ScoreBreakdown, reelgood_scores: ReelgoodScores, regional_availability: RegionalAvailability, source_ad_placement: SourceAdPlacement, source_ad_placements: list[SourceAdPlacement], rating_stats = {}, reviews_count: int = 0) -> None:
         self.metadata = metadata
         self.id = id
         self.slug = slug
@@ -127,7 +129,7 @@ class ItemMovie(TableInterface):
         self.sources = sources
         self.on_free = on_free
         self.on_rent_purchase = on_rent_purchase
-        self.genres = genres
+        self.genres = genres    
         self.tags = tags
         self.countries = countries
         self.availability = availability
@@ -137,6 +139,8 @@ class ItemMovie(TableInterface):
         self.regional_availability = regional_availability
         self.source_ad_placement = source_ad_placement
         self.source_ad_placements = source_ad_placements
+        self.rating_stats = rating_stats
+        self.reviews_count = reviews_count
 
     def get_number_seasons(self): return '0'
 
