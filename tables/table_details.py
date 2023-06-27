@@ -1,8 +1,10 @@
+from utils import formatDate, formatDateStr
 from rich.console import Console
 from rich.table import Table, box
 from tables.TableInterface import TableInterface
 from tables.people import people
 from tables.sources import source
+from api.models.PersonApi import PersonApi
 
 console = Console()
 
@@ -61,10 +63,10 @@ def __tableItem(
 
 
 def __tableItemPerson(
-        name='Kiefer Sutherland',
-        birthdate='1966-12-21',
-        birthplace='Paddington, London, England, UK',
-        deathdate='1966-12-21'
+        name: str,
+        birthdate: str,
+        birthplace: str,
+        deathdate: str
 ) -> Table:
 
     table.add_row(
@@ -77,21 +79,19 @@ def __tableItemPerson(
 
 
 topTablePerson = [
-    'Name',
-    'Birth date',
-    'Birth place',
-    'Death date'
+    ':scroll: Name',
+    ':date: Birth date',
+    ':star: Birth place',
+    ':date: Death date'
 ]
 
-
-def table_details_person(item) -> Table:
+def table_details_person(item: PersonApi) -> Table:
     for title in topTablePerson:
         table.add_column(title)
-
     __tableItemPerson(
         name=item.name,
-        birthdate=item.birthdate,
-        birthplace=item.birthplace,
-        deathdate=item.deathdate    
+        birthdate="-- -- --" if item.birthdate is None else formatDateStr(item.birthdate),
+        birthplace="" if item.birthplace is None else item.birthplace,
+        deathdate="-- -- --" if item.deathdate is None else formatDateStr(item.deathdate)
     )
     return table

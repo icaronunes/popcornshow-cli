@@ -6,7 +6,7 @@ from rich.table import Table
 from rich.tree import Tree
 from models.ItemMovie import Person
 from api.models.SearchApi import Item
-from rich.console import Console
+from utils import formatDate
 
 works = {
     0: 'Director',
@@ -24,32 +24,30 @@ works = {
 
 
 def people(peoples: list[Person]) -> Columns:
-    def chooseType(person: Person) -> str:
-        return createProduction(
-            person) if person['role_type'] != 1 else createActor(person)
-
-    directory = [Panel(chooseType(people), expand=True) for people in peoples]
+    def chooseType(idx: int,person: Person) -> str:
+        return createProduction(idx,person) if person['role_type'] != 1 else createActor(idx,person)
+    directory = [Panel(chooseType(idx,people), expand=True) for idx, people in enumerate(peoples)]
     return Columns(directory)
 
 
-def createProduction(person: Person) -> str:
-    return f"[b][green]{person['name']}[/b]\n[red1][i]{works[person['role_type']]}[/i]\n:link: {__create_link(person)}"
+def createProduction(idx:int,person: Person) -> str:
+    return f"#{idx + 1}\n[b][green]{person['name']}[/b]\n[red1][i]{works[person['role_type']]}[/i]\n:link: {__create_link(person)}"
 
 
-def createActor(person: Person) -> str:
-    return f"[b][purple]{person['name']}[/b]\n[red1][i]{person['role']}[/i]\n:link: {__create_link(person)}"
+def createActor(idx:int, person: Person) -> str:
+    return f"#{idx+ 1 }\n[b][purple]{person['name']}[/b]\n[red1][i]{person['role']}[/i]\n:link: {__create_link(person)}"
 
 
 def __create_link(person: Person) -> str:
     return f"[blue1][link=https://reelgood.com/person/{person['slug']}]For Details[/link]"
 
 
-def people_biography(biography: str) -> Panel:
+def people_biography(biography: str|None) -> Panel:
     return Panel(biography)
 
 
 def person_media(list: list[Item]) -> Columns:
-    def chooseType(item) -> str:
-        return f"{item['title']} \n{item['released_on']}\n{item['imdb_rating']}"
-    directory = [Panel(chooseType(item), expand=True) for item in list]
+    def chooseType(idx: int, item: Item) -> str:
+        return f"#{idx + 1}\n[red]{item['title']} \n[green]{formatDate(item['released_on']).date()}\n[yellow]{item['imdb_rating']}"
+    directory = [Panel(chooseType(idx,item), expand=True) for idx, item in enumerate(list)]
     return Columns(directory)

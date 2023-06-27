@@ -1,5 +1,5 @@
-from datetime import datetime
 import typer
+from datetime import datetime
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
@@ -8,14 +8,15 @@ from controller import transformItem, searchReel, person_reel
 from models.ItemMovie import ItemMovie
 from models.ItemShow import ItemShow
 from models.Search import Search
+from models.Person import Person
 from tables.table_details import table_details, table_details_person
 from tables.tableDetailsShow import table_details_show
 from tables.table_search import tableSearch
 from tables.people import people, people_biography, person_media
-
 from tables.sources import columns, columnsSeasons
 from api.models.Result import Result
 from api.models.PersonApi import PersonApi
+from rich.prompt import Prompt
 
 from utils import BACK, formatDate
 
@@ -42,9 +43,8 @@ def search(name: str,
         typer.echo("Not Found")
 
 
-@app.command('person')
-def testperson():
-    result: Result = person_reel('damien-chazelle-1985')
+def person(name: str):
+    result: Result = person_reel(name)
     if result.error is None:
         __showPerson(result.value)
     else:
@@ -88,7 +88,23 @@ def __showTvshow(show: ItemShow):
     tree.add(__footer__(show))
     console.print(tree)
 
+    if show.people.__len__() > 0:
+        __choosePerson(show.people)
 
+    
+def __choosePerson(list: list[Person]):
+    console.log("TAMANHO", list.__len__())
+    number = Prompt.ask(f"Enter the person's number between 1 to {1 if list.__len__() == 1 else list.__len__()} for details - zero to exit")
+    try:       
+       value = int(number)
+       if(value < 1):
+           return
+       people = list[value -1]
+       person(people['slug'])
+       return
+    except (TypeError, ValueError, IndexError):
+       __choosePerson(list) 
+    
 def __showMovie(movie: ItemMovie):
     tree = Tree('')
     tree.add(__rich__())
@@ -115,7 +131,8 @@ def __showPerson(person: PersonApi):
     tree = Tree('')
     tree.add(__rich__())
     tree.add(table_details_person(person), highlight=False)
-    tree.add(people_biography(person.biography))
+    if person.biography is not None:
+        tree.add(people_biography(person.biography)) 
     tree.add(person_media(person.initial_credits))
     tree.add(__footer_person__(person))
     console.print(tree)

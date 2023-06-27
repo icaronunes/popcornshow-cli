@@ -9,11 +9,11 @@ class PersonApi:
     id: str
     slug: str
     name: str
-    birthplace: str
-    birthdate: str
-    deathdate: Optional[str]
+    birthplace: str|None
+    birthdate: Optional[str|None]
+    deathdate: Optional[str|None]
     gender: str
-    biography: str
+    biography: str|None
     homepage: Optional[str]
     has_poster: bool
     has_square: bool

@@ -5,8 +5,8 @@ from models.Trailer import Trailer
 BACK = 'back'
 
 
-def formatDate(date: str | None) -> datetime | None:
-    if date == None:
+def formatDate(date: str | None) -> datetime | str:
+    if date is None:
         return date
     formatDate = date[:19]
     return datetime.strptime(formatDate, "%Y-%m-%dT%H:%M:%S")
@@ -17,6 +17,14 @@ def formatFullDate(date: str | None) -> datetime:
         return "- -"
     return datetime.strptime(date, "%Y-%m-%dT%H:%M:%S")
 
+def formatDateStr(date: str | None) -> str:
+    if date is None:
+        return "--"
+    try:
+        formatDate = date[:19]    
+        return str(datetime.strptime(formatDate, "%Y-%m-%dT%H:%M:%S").date())
+    except:
+        return "-- -- --"    
 
 def createUrl(type: str, url: str) -> str:
     if (type == 'm'):
