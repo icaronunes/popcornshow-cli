@@ -50,7 +50,6 @@ def __tableItem(
     classification: str,
     trailers: list[str],
 ):
-
     table.add_row(
         overview,
         release,
@@ -60,38 +59,3 @@ def __tableItem(
         trailers,
         end_section=True
     )
-
-
-def __tableItemPerson(
-        name: str,
-        birthdate: str,
-        birthplace: str,
-        deathdate: str
-) -> Table:
-
-    table.add_row(
-        name,
-        birthdate,
-        birthplace,
-        deathdate        
-    )
-    return table
-
-
-topTablePerson = [
-    ':scroll: Name',
-    ':date: Birth date',
-    ':star: Birth place',
-    ':date: Death date'
-]
-
-def table_details_person(item: PersonApi) -> Table:
-    for title in topTablePerson:
-        table.add_column(title)
-    __tableItemPerson(
-        name=item.name,
-        birthdate="-- -- --" if item.birthdate is None else formatDateStr(item.birthdate),
-        birthplace="" if item.birthplace is None else item.birthplace,
-        deathdate="-- -- --" if item.deathdate is None else formatDateStr(item.deathdate)
-    )
-    return table
