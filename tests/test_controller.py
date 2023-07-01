@@ -22,7 +22,7 @@ def test_with_not_empty_searchReel():
 def test_transformItem():
     itemSearch = Search(id=1, title='title', release='2000',
                         type=ContentType.M.value, imdb=10.0, online=[""], slug=MOVIE)
-    result: Result = transformItem(itemSearch)
+    result: Result = transformItem(itemSearch.slug, itemSearch.type)
     assert result.value
     assert result.error == None
 
@@ -31,7 +31,7 @@ def test_transformItem_error_movie():
     typeMovie = ContentType.M.value
     itemSearch = Search(id=1, title='title', release='2000',
                         type=typeMovie, imdb=10.0, online=[""], slug='slug_missing')
-    result: Result = transformItem(itemSearch)
+    result: Result = transformItem(itemSearch.slug, itemSearch.type)
     assert result.value == None
     assert isinstance(result.error, Exception)
     assert str(result.error) == "Match not Found..."
@@ -41,7 +41,7 @@ def test_transformItem_error_show():
     typeShow = ContentType.S.value
     itemSearch = Search(id=1, title='title', release='2000',
                         type=typeShow, imdb=10.0, online=[""], slug='slug_missing')
-    result: Result = transformItem(itemSearch)
+    result: Result = transformItem(itemSearch.slug, itemSearch.type)
     assert result.value == None
     assert isinstance(result.error, Exception)
     assert str(result.error) == "Match not Found..."
@@ -51,6 +51,6 @@ def test_transformItem_success_show():
     typeShow = ContentType.S.value
     itemSearch = Search(id=1, title='title', release='2000',
                         type=typeShow, imdb=10.0, online=[""], slug=SHOW)
-    result: Result = transformItem(itemSearch)
+    result: Result = transformItem(itemSearch.slug, itemSearch.type)
     assert result.error == None
     assert result.value
