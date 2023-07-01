@@ -7,7 +7,6 @@ from datetime import datetime
     LIMPAR CLASSE
 """
 
-
 class Classification(Enum):
     THE_13 = "13+"
     THE_16 = "16+"
@@ -16,12 +15,15 @@ class Classification(Enum):
 
 
 class ContentType(Enum):
+    def __str__(self) -> str: 
+       return self.name
+
     M = "m"
     S = "s"
 
 
 @dataclass
-class Item:
+class Item():
     id: str
     slug: str
     content_type: ContentType
@@ -78,7 +80,6 @@ class Item:
         self.season_count = season_count
         self.featured_services = featured_services
         self.episode_source_count = episode_source_count
-
 
 @dataclass
 class SearchApi():

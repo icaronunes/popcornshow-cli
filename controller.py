@@ -27,17 +27,17 @@ def person_reel(id) -> Result:
     else:
         return Result(Exception("Match not Found..."))
 
-def transformItem(item: Search) -> Result:
-    match item.type:
+def transformItem(slug: str, type: str) -> Result:
+    match type:
         case ContentType.M.value:
             movie=getMovieApi(
-                item.slug)
+                slug)
             if movie.error is None:
                 return Result(value=ItemMovie(**json.loads(movie.value)))
             else:
                 return Result(Exception("Match not Found..."))
         case ContentType.S.value:
-            tv=getTvShowApi(item.slug)
+            tv=getTvShowApi(slug)
             if tv.error is None:
                 return Result(value=ItemShow(**json.loads(tv.value)))
             else:

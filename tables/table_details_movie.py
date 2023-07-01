@@ -6,8 +6,6 @@ from tables.people import people
 from tables.sources import source
 from api.models.PersonApi import PersonApi
 
-console = Console()
-
 topTable = [
     ':scroll: Overview',
     ':date: Release',
@@ -17,7 +15,8 @@ topTable = [
     ':movie_camera: Trailers'
 ]
 
-table = Table(
+def __initTable__() -> Table:
+    table = Table(
     highlight=True,
     show_header=True,
     show_edge=True,
@@ -25,13 +24,16 @@ table = Table(
     show_lines=True,
     box=box.DOUBLE_EDGE
 )
-
-
-def table_details(item: TableInterface) -> Table:
     for title in topTable:
         table.add_column(title)
 
-    __tableItem(
+    return table
+    
+
+def table_details(item: TableInterface) -> Table:
+   
+    table = __tableItem__(
+        table=__initTable__(),        
         overview=item.get_overview(),
         release=item.get_date(),
         time=item.get_time(),
@@ -42,14 +44,15 @@ def table_details(item: TableInterface) -> Table:
     return table
 
 
-def __tableItem(
+def __tableItem__(
+    table: Table, 
     overview: str,
     release: str,
     time: str,
     imdb: float,
     classification: str,
     trailers: list[str],
-):
+) ->  Table:
     table.add_row(
         overview,
         release,
@@ -59,3 +62,4 @@ def __tableItem(
         trailers,
         end_section=True
     )
+    return table

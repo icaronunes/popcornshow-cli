@@ -15,21 +15,24 @@ searchType = [
     ':link: Details'
 ]
 
-
-table = Table(
+def __init_table__() -> Table:
+    table = Table(
     title="POPCORN SHOW - SEARCH",
     highlight=True,
     show_header=True,
     show_edge=True,
     expand=True
 )
+    for title in searchType:
+        table.add_column(title)
+    return table    
 
 
 def tableSearch(items: list[Search]) -> Table:
-    for title in searchType:
-        table.add_column(title)
+    table = __init_table__()    
     for index, item in enumerate(items):
-        __tableItem(
+        __tableItem__(
+            table=table,
             id=str(index + 1),
             title=f"[white]{item.title}[/white]",
             release=item.formatSimpleDateStr(),
@@ -41,7 +44,8 @@ def tableSearch(items: list[Search]) -> Table:
     return table
 
 
-def __tableItem(
+def __tableItem__(
+    table: Table,
     id: int,
     title: str,
     imdb: float,
