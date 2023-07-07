@@ -50,9 +50,9 @@ def test_result_breaking_bad_by_show_out_luck():
     assert "Aaron Paul" in result.stdout 
 
 def test_result_breaking_bad_by_show_out_luck_choose_out_number():
-    result = runner.invoke(app, ["breaking bad", "-t","s"], input="10\n")
+    result = runner.invoke(app, ["breaking bad", "-t","s"], input="51\n")
     assert 'Number off the list.\nFor details, write a number between 1 and' in result.output 
-    assert '. Zero to exit\n: \nAborted.\n' in result.stdout
+    assert 'Zero to exit' in result.stdout
     
 
 def test_result_none_name():
@@ -68,9 +68,14 @@ def test_result_lost_by_movie_luck():
     std = result.stdout
     assert 'Overview' in std
     assert 'Trailers' in std
-    assert "Details in Reelgood.com" in result.stdout
+    assert 'Time' in std
+    assert 'IMDB' in std   
+    assert 'Trailers' in std
+    assert "Details" in std
+    assert 'Where to Watch: Indiana Jones and the Raiders of the Lost Ark' in std
     if 'Raiders of the Lost Ark 1981' in std:
         assert 'Steven Spielberg' in std
+        assert 'Harrison Ford' in std
         assert '1981'
 
 def test_view_foot():

@@ -2,9 +2,6 @@ from datetime import datetime
 from config import URL_BASE
 from models.Trailer import Trailer
 
-BACK = 'back'
-
-
 def formatDate(date: str | None) -> datetime | str:
     if date is None:
         return date

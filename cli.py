@@ -21,7 +21,7 @@ from api.models.SearchApi import ContentType
 from api.models.SearchApi import Item
 from rich.prompt import Prompt
 
-from utils import BACK, formatDate
+from utils import formatDate
 
 app = typer.Typer(help="PopCorn Show")
 console = Console()
@@ -219,7 +219,7 @@ def __footer_person__(item: PersonApi) -> Panel:
 def chooseNumber(list: list[Search], hasError=False):
     item: None
     number = Prompt.ask(f"[red]For details, write a number between 1 and {list.__len__()}. Zero to exit\n")
-    if hasError or number == BACK:
+    if hasError or number == '0':
         return
 
     try:
@@ -232,7 +232,7 @@ def chooseNumber(list: list[Search], hasError=False):
             return
 
     except ValueError:
-        print("Number Error! - write 'back' to exit ")
+        print("Number Error! - write '0' to exit ")
         chooseNumber(list, True)
         return
 
