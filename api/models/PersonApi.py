@@ -10,8 +10,8 @@ class PersonApi:
     slug: str
     name: str
     birthplace: str|None
-    birthdate: Optional[str|None]
-    deathdate: Optional[str|None]
+    birthdate: Optional[str]
+    deathdate: Optional[str]
     gender: str
     biography: str|None
     homepage: Optional[str]

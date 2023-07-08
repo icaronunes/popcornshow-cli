@@ -1,9 +1,6 @@
 import sys
 import os
 
-from pytest import console_main
-
-
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
