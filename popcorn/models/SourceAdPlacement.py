@@ -1,5 +1,5 @@
-from models.Links import Links
-from models.Creative import Creative
+from popcorn.models.Links import Links
+from popcorn.models.Creative import Creative
 
 
 class SourceAdPlacement:

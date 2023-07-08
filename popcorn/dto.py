@@ -1,7 +1,7 @@
 
 
-from models.Search import Search
-from api.models.SearchApi import Item
+from popcorn.models.Search import Search
+from popcorn.api.models.SearchApi import Item
 
 
 def formatList(items: list[Item]) -> list[Search]:

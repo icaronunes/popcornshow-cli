@@ -5,8 +5,8 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 
-from cli import app, chooseNumber
-from models.Search import Search
+from popcorn.cli import app, chooseNumber
+from popcorn.models.Search import Search
 from typer.testing import CliRunner
 
 

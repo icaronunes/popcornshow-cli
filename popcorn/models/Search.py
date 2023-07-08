@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from utils import createUrl as fullUrl, formatSources, formatType, formatDate
+from popcorn.utils import createUrl as fullUrl, formatSources, formatType, formatDate
 
 
 @dataclass

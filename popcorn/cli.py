@@ -4,24 +4,24 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 from rich.tree import Tree
-from controller import transformItem, searchReel, person_reel
-from models.ItemMovie import ItemMovie
-from models.ItemShow import ItemShow
-from models.Search import Search
-from models.Person import Person
-from tables.table_details_movie import table_details
-from tables.table_person import table_details_person
-from tables.tableDetailsShow import table_details_show
-from tables.table_search import tableSearch
-from tables.people import people, people_biography, person_media
-from tables.sources import columns, columnsSeasons
-from api.models.Result import Result
-from api.models.PersonApi import PersonApi
-from api.models.SearchApi import ContentType
-from api.models.SearchApi import Item
 from rich.prompt import Prompt
 
-from utils import formatDate
+from popcorn.controller import transformItem, searchReel, person_reel
+from popcorn.models.ItemMovie import ItemMovie
+from popcorn.models.ItemShow import ItemShow
+from popcorn.models.Search import Search
+from popcorn.models.Person import Person
+from popcorn.tables.table_details_movie import table_details
+from popcorn.tables.table_person import table_details_person
+from popcorn.tables.tableDetailsShow import table_details_show
+from popcorn.tables.table_search import tableSearch
+from popcorn.tables.people import people, people_biography, person_media
+from popcorn.tables.sources import columns, columnsSeasons
+from popcorn.api.models.Result import Result
+from popcorn.api.models.PersonApi import PersonApi
+from popcorn.api.models.SearchApi import ContentType
+from popcorn.api.models.SearchApi import Item
+from popcorn.utils import formatDate
 
 app = typer.Typer(help="PopCorn Show")
 console = Console()
@@ -241,10 +241,10 @@ def chooseNumber(list: list[Search], hasError=False):
         fillByType(result)
 
 
-def init():
+# def init():
     # print("POPCORN SHOW! - CLI") CRIAR TELA DE BOAS VINDAS
-    app()
-
-
-if __name__ == "__main__":
-    typer.run(init())
+    # app()
+# 
+# 
+# if __name__ == "__main__":
+    # typer.run(init())

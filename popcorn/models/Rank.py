@@ -1,4 +1,4 @@
-from models.ListingKey import ListingKey
+from popcorn.models.ListingKey import ListingKey
 
 class Rank:
     rank: int

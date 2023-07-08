@@ -1,6 +1,6 @@
 from typing import Optional
 from dataclasses import dataclass
-from api.models.SearchApi import Item
+from popcorn.api.models.SearchApi import Item
 
 
 @dataclass

@@ -1,7 +1,8 @@
 from rich.console import Console
 from rich.table import Table
-from models.Search import Search
 from rich.table import Column
+
+from popcorn.models.Search import Search
 
 console = Console()
 

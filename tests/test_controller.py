@@ -1,9 +1,9 @@
-from controller import searchReel, transformItem
-from models.Search import Search
-from models.ItemMovie import ItemMovie
-from models.ItemShow import ItemShow
-from api.models.SearchApi import ContentType
-from api.models.Result import Result
+from popcorn.controller import searchReel, transformItem
+from popcorn.models.Search import Search
+from popcorn.models.ItemMovie import ItemMovie
+from popcorn.models.ItemShow import ItemShow
+from popcorn.api.models.SearchApi import ContentType
+from popcorn.api.models.Result import Result
 
 MOVIE = 'the-matrix-1999'
 SHOW = 'lost-2004'

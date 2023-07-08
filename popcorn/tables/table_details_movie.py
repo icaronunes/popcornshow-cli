@@ -1,10 +1,11 @@
-from utils import formatDate, formatDateStr
 from rich.console import Console
 from rich.table import Table, box
-from tables.TableInterface import TableInterface
-from tables.people import people
-from tables.sources import source
-from api.models.PersonApi import PersonApi
+
+from popcorn.utils import formatDate, formatDateStr
+from popcorn.tables.TableInterface import TableInterface
+from popcorn.tables.people import people
+from popcorn.tables.sources import source
+from popcorn.api.models.PersonApi import PersonApi
 
 topTable = [
     ':scroll: Overview',

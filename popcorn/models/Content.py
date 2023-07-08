@@ -1,5 +1,5 @@
-from models.Rank import Rank
-from models.AlsoWatched import AlsoWatched
+from popcorn.models.Rank import Rank
+from popcorn.models.AlsoWatched import AlsoWatched
 
 
 class Content:

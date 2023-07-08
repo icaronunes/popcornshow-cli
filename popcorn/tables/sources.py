@@ -1,11 +1,11 @@
 from rich.tree import Tree
 from rich.columns import Columns
 from rich.panel import Panel
-from utils import formatSource
-from models.TVShowEpisode import TVShowEpisode
 
-from models.ItemMovie import Availability
-from models.Seasons import Availability as AvailabilityShow, Season
+from popcorn.utils import formatSource
+from popcorn.models.TVShowEpisode import TVShowEpisode
+from popcorn.models.ItemMovie import Availability
+from popcorn.models.Seasons import Availability as AvailabilityShow, Season
 
 
 def columns(availabilitys: list[Availability]) -> Columns:

@@ -1,5 +1,5 @@
-from models.Streamability import Streamability
-from models.Content import Content
+from popcorn.models.Streamability import Streamability
+from popcorn.models.Content import Content
 
 class ScoreBreakdown:
     streamability: list[Streamability]

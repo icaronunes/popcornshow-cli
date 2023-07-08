@@ -1,12 +1,12 @@
-from api.api import search, getMovieApi, getTvShowApi, get_person_details
-from api.models.Result import Result
-from api.models.SearchApi import ContentType
-from api.models.PersonApi import PersonApi
-from models.Search import Search
-from models.ItemMovie import ItemMovie
-from models.ItemShow import ItemShow
-from utils import formatDate
-from dto import formatList
+from popcorn.api.api import search, getMovieApi, getTvShowApi, get_person_details
+from popcorn.api.models.Result import Result
+from popcorn.api.models.SearchApi import ContentType
+from popcorn.api.models.PersonApi import PersonApi
+from popcorn.models.Search import Search
+from popcorn.models.ItemMovie import ItemMovie
+from popcorn.models.ItemShow import ItemShow
+from popcorn.utils import formatDate
+from popcorn.dto import formatList
 import json
 
 

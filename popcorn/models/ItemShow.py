@@ -1,17 +1,17 @@
 from datetime import datetime
 from typing import Any
-from utils import createUrl as fullUrl, formatTrailers, filterTrailerByService, formatDate
-from tables.TableInterface import TableInterface
-from models.Seasons import Season
-from models.Person import Person
-from models.SourceAdPlacement import SourceAdPlacement
-from models.ScoreBreakdown import ScoreBreakdown
-from models.Tag import Tag
-from models.ReelgoodScores import ReelgoodScores
-from models.RegionalAvailability import RegionalAvailability
-from models.Metadata import Metadata
-from models.Trailer import Trailer
-from models.TVShowEpisode import TVShowEpisode
+from popcorn.utils import createUrl as fullUrl, formatTrailers, filterTrailerByService, formatDate
+from popcorn.tables.TableInterface import TableInterface
+from popcorn.models.Seasons import Season
+from popcorn.models.Person import Person
+from popcorn.models.SourceAdPlacement import SourceAdPlacement
+from popcorn.models.ScoreBreakdown import ScoreBreakdown
+from popcorn.models.Tag import Tag
+from popcorn.models.ReelgoodScores import ReelgoodScores
+from popcorn.models.RegionalAvailability import RegionalAvailability
+from popcorn.models.Metadata import Metadata
+from popcorn.models.Trailer import Trailer
+from popcorn.models.TVShowEpisode import TVShowEpisode
 from dataclasses import dataclass
 
 

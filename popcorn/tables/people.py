@@ -4,9 +4,9 @@ from rich.console import Group
 from rich.panel import Panel
 from rich.table import Table
 from rich.tree import Tree
-from models.ItemMovie import Person
-from api.models.SearchApi import Item
-from utils import formatDate
+from popcorn.models.ItemMovie import Person
+from popcorn.api.models.SearchApi import Item
+from popcorn.utils import formatDate
 
 works = {
     0: 'Director',

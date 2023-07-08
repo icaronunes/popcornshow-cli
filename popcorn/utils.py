@@ -1,6 +1,6 @@
 from datetime import datetime
-from config import URL_BASE
-from models.Trailer import Trailer
+from popcorn.config import URL_BASE
+from popcorn.models.Trailer import Trailer
 
 def formatDate(date: str | None) -> datetime | str:
     if date is None:

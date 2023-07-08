@@ -1,18 +1,20 @@
-from utils import formatDate, formatTrailers, formatSources, filterTrailerByService, createUrl as fullUrl
 from dataclasses import dataclass
-from tables.TableInterface import TableInterface
 from datetime import datetime
-from models.Tag import Tag
-from models.Links import Links
-from models.Ios import Ios
-from models.Person import Person
-from models.Trailer import Trailer
-from models.Metadata import Metadata
-from models.SourceAdPlacement import SourceAdPlacement
-from models.ScoreBreakdown import ScoreBreakdown
-from models.ReelgoodScores import ReelgoodScores
-from models.RegionalAvailability import RegionalAvailability
 from typing import Optional
+
+from popcorn.tables.TableInterface import TableInterface
+from popcorn.utils import formatDate, formatTrailers, formatSources, filterTrailerByService, createUrl as fullUrl
+from popcorn.models.Tag import Tag
+from popcorn.models.Links import Links
+from popcorn.models.Ios import Ios
+from popcorn.models.Person import Person
+from popcorn.models.Trailer import Trailer
+from popcorn.models.Metadata import Metadata
+from popcorn.models.SourceAdPlacement import SourceAdPlacement
+from popcorn.models.ScoreBreakdown import ScoreBreakdown
+from popcorn.models.ReelgoodScores import ReelgoodScores
+from popcorn.models.RegionalAvailability import RegionalAvailability
+
 
 
 class References:

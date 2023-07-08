@@ -1,5 +1,5 @@
 import requests
-from api.models.Result import Result
+from popcorn.api.models.Result import Result
 
 paramsDefault = {'page': '1', 'pageSize': '10',
                  'region': 'us', 'take': '10', 'terms': ''}

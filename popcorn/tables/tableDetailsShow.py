@@ -1,8 +1,9 @@
 from rich.console import Console
 from rich.table import Table, box
-from tables.TableInterface import TableInterface
-from tables.people import people
-from tables.sources import source
+
+from popcorn.tables.TableInterface import TableInterface
+from popcorn.tables.people import people
+from popcorn.tables.sources import source
 
 console = Console()
 

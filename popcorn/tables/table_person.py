@@ -1,6 +1,7 @@
-from utils import formatDateStr
 from rich.table import Table, box
-from api.models.PersonApi import PersonApi
+
+from popcorn.utils import formatDateStr
+from popcorn.api.models.PersonApi import PersonApi
 
 topTablePerson = [
     ':scroll: Name',
