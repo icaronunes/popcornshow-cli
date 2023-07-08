@@ -1,15 +1,21 @@
 import requests
+
 from popcorn.api.models.Result import Result
 
-paramsDefault = {'page': '1', 'pageSize': '10',
-                 'region': 'us', 'take': '10', 'terms': ''}
+paramsDefault = {
+    "page": "1",
+    "pageSize": "10",
+    "region": "us",
+    "take": "10",
+    "terms": "",
+}
 
 
 def search(query: str) -> Result:
     """
-    Busca por mídias com valores igual a 'query', retornando um json 
+    Busca por mídias com valores igual a 'query', retornando um json
     Parameters:
-        query: texto nome do filme ou serie        
+        query: texto nome do filme ou serie
     Returns:
         Retorna um object Result onde se tem objetos internos, como value contento o json do resultado
     Exemplos:
@@ -58,9 +64,10 @@ def search(query: str) -> Result:
                "page_size": 10
             }
     """
-    paramsDefault['terms'] = query
+    paramsDefault["terms"] = query
     result = requests.get(
-        "https://api.reelgood.com/v3.0/content/search/content", params=paramsDefault)
+        "https://api.reelgood.com/v3.0/content/search/content", params=paramsDefault
+    )
     if result.status_code == requests.codes.ok:
         return Result(value=result.text)
     else:
@@ -95,7 +102,7 @@ def getMovieApi(id: str) -> Result:
                     "key": "nUEQNVV3Gfs",
                     "url": null
                 },
-                ...    
+                ...
             }
         >>> search('um texto sem correspondência')
 
@@ -106,8 +113,7 @@ def getMovieApi(id: str) -> Result:
                 "traceId": "00-879fe78e889ae66bb06aa8ae86c6ac11-9a132b9f1975f20e-00"
             }
     """
-    result = requests.get(
-        f"https://api.reelgood.com/v3.0/content/movie/{id}")
+    result = requests.get(f"https://api.reelgood.com/v3.0/content/movie/{id}")
     if result.status_code == requests.codes.ok:
         return Result(value=result.text)
     else:
@@ -154,7 +160,7 @@ def getTvShowApi(id: str) -> Result:
                 "classification": "16+",
                 "last_modified_at": "2023-03-16T00:00:00",
                 ...
-            }    
+            }
         >>> getTvShowApi('um texto sem correspondência')
 
             {
@@ -164,8 +170,7 @@ def getTvShowApi(id: str) -> Result:
                 "traceId": "00-cfa2d680394c5d6dcba63ceda93993eb-b2dc38cd80923d52-00"
             }
     """
-    result = requests.get(
-        f"https://api.reelgood.com/v3.0/content/show/{id}")
+    result = requests.get(f"https://api.reelgood.com/v3.0/content/show/{id}")
     if result.status_code == requests.codes.ok:
         return Result(value=result.text)
     else:
@@ -173,7 +178,9 @@ def getTvShowApi(id: str) -> Result:
 
 
 def get_person_details(id) -> Result:
-    result = requests.get(f"https://api.reelgood.com/v3.0/content/people/{id}?availability=all&content_kind=both&hide_seen=true&hide_tracked=true&hide_watchlisted=true&imdb_end=10&imdb_start=0&region=us&rg_end=100&rg_start=0&skip=0&sort=0&take=35&year_end=2023&year_start=1900")    
+    result = requests.get(
+        f"https://api.reelgood.com/v3.0/content/people/{id}?availability=all&content_kind=both&hide_seen=true&hide_tracked=true&hide_watchlisted=true&imdb_end=10&imdb_start=0&region=us&rg_end=100&rg_start=0&skip=0&sort=0&take=35&year_end=2023&year_start=1900"
+    )
     if result.status_code == requests.codes.ok:
         return Result(value=result.text)
     else:

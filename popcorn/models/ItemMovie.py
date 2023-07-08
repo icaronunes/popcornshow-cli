@@ -2,19 +2,20 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 
-from popcorn.tables.TableInterface import TableInterface
-from popcorn.utils import formatDate, formatTrailers, formatSources, filterTrailerByService, createUrl as fullUrl
-from popcorn.models.Tag import Tag
-from popcorn.models.Links import Links
 from popcorn.models.Ios import Ios
-from popcorn.models.Person import Person
-from popcorn.models.Trailer import Trailer
+from popcorn.models.Links import Links
 from popcorn.models.Metadata import Metadata
-from popcorn.models.SourceAdPlacement import SourceAdPlacement
-from popcorn.models.ScoreBreakdown import ScoreBreakdown
+from popcorn.models.Person import Person
 from popcorn.models.ReelgoodScores import ReelgoodScores
 from popcorn.models.RegionalAvailability import RegionalAvailability
-
+from popcorn.models.ScoreBreakdown import ScoreBreakdown
+from popcorn.models.SourceAdPlacement import SourceAdPlacement
+from popcorn.models.Tag import Tag
+from popcorn.models.Trailer import Trailer
+from popcorn.tables.TableInterface import TableInterface
+from popcorn.utils import createUrl as fullUrl
+from popcorn.utils import (filterTrailerByService, formatDate, formatSources,
+                           formatTrailers)
 
 
 class References:
@@ -23,7 +24,9 @@ class References:
     android: Optional[Ios]
     webos: Optional[Ios]
 
-    def __init__(self, web: Ios, ios: Ios, android: Optional[Ios], webos: Optional[Ios]) -> None:
+    def __init__(
+        self, web: Ios, ios: Ios, android: Optional[Ios], webos: Optional[Ios]
+    ) -> None:
         self.web = web
         self.ios = ios
         self.android = android
@@ -35,7 +38,9 @@ class SourceData:
     references: Optional[References]
     web_link: str
 
-    def __init__(self, links: Links, references: Optional[References], web_link: str) -> None:
+    def __init__(
+        self, links: Links, references: Optional[References], web_link: str
+    ) -> None:
         self.links = links
         self.references = references
         self.web_link = web_link
@@ -51,7 +56,17 @@ class Availability:
     access_type: int
     source_data: SourceData
 
-    def __init__(self, rental_cost_hd: Optional[float | None], rental_cost_sd: Optional[float | None], purchase_cost_hd: Optional[float | None], purchase_cost_sd: Optional[float | None], source_id: str, source_name: str, access_type: int, source_data: SourceData) -> None:
+    def __init__(
+        self,
+        rental_cost_hd: Optional[float | None],
+        rental_cost_sd: Optional[float | None],
+        purchase_cost_hd: Optional[float | None],
+        purchase_cost_sd: Optional[float | None],
+        source_id: str,
+        source_name: str,
+        access_type: int,
+        source_data: SourceData,
+    ) -> None:
         self.rental_cost_hd = rental_cost_hd
         self.rental_cost_sd = rental_cost_sd
         self.purchase_cost_hd = purchase_cost_hd
@@ -103,7 +118,48 @@ class ItemMovie(TableInterface):
     rating_stats: any
     reviews_count: int
 
-    def __init__(self, metadata: Metadata, id: str, slug: str, title: str, overview: str, tagline: str, reelgood_synopsis: str, classification: str, runtime: int, released_on: datetime, trailer: Trailer, trailers: list[Trailer], language: str, has_poster: bool, has_backdrop: bool, imdb_rating: float, imdb_votes: int, rt_critics_rating: None, rt_audience_rating: int, last_modified_at: datetime, user_rating: None, watchlisted: bool, seen: bool, user_lists: None, sources: list[str], on_free: bool, on_rent_purchase: bool, genres: list[int], tags: list[Tag], countries: list[str], availability: list[Availability], people: list[Person], score_breakdown: ScoreBreakdown, reelgood_scores: ReelgoodScores, regional_availability: RegionalAvailability, source_ad_placement: SourceAdPlacement, source_ad_placements: list[SourceAdPlacement], rating_stats = {}, reviews_count: int = 0) -> None:
+    def __init__(
+        self,
+        metadata: Metadata,
+        id: str,
+        slug: str,
+        title: str,
+        overview: str,
+        tagline: str,
+        reelgood_synopsis: str,
+        classification: str,
+        runtime: int,
+        released_on: datetime,
+        trailer: Trailer,
+        trailers: list[Trailer],
+        language: str,
+        has_poster: bool,
+        has_backdrop: bool,
+        imdb_rating: float,
+        imdb_votes: int,
+        rt_critics_rating: None,
+        rt_audience_rating: int,
+        last_modified_at: datetime,
+        user_rating: None,
+        watchlisted: bool,
+        seen: bool,
+        user_lists: None,
+        sources: list[str],
+        on_free: bool,
+        on_rent_purchase: bool,
+        genres: list[int],
+        tags: list[Tag],
+        countries: list[str],
+        availability: list[Availability],
+        people: list[Person],
+        score_breakdown: ScoreBreakdown,
+        reelgood_scores: ReelgoodScores,
+        regional_availability: RegionalAvailability,
+        source_ad_placement: SourceAdPlacement,
+        source_ad_placements: list[SourceAdPlacement],
+        rating_stats={},
+        reviews_count: int = 0,
+    ) -> None:
         self.metadata = metadata
         self.id = id
         self.slug = slug
@@ -131,7 +187,7 @@ class ItemMovie(TableInterface):
         self.sources = sources
         self.on_free = on_free
         self.on_rent_purchase = on_rent_purchase
-        self.genres = genres    
+        self.genres = genres
         self.tags = tags
         self.countries = countries
         self.availability = availability
@@ -144,7 +200,8 @@ class ItemMovie(TableInterface):
         self.rating_stats = rating_stats
         self.reviews_count = reviews_count
 
-    def get_number_seasons(self): return '0'
+    def get_number_seasons(self):
+        return "0"
 
     def get_overview(self):
         return self.overview
@@ -159,38 +216,44 @@ class ItemMovie(TableInterface):
         return self.imdbStr()
 
     def get_classification(self) -> str:
-        return f"[b][white]{self.classification}" if self.classification else 'Who knows'
+        return (
+            f"[b][white]{self.classification}" if self.classification else "Who knows"
+        )
 
     def get_trailers(self) -> str:
         return self.getListTrailers()
 
     def formatDate(self) -> str:
-        return str(formatDate(self.released_on).date()) if self.released_on is not None else '-- --'
+        return (
+            str(formatDate(self.released_on).date())
+            if self.released_on is not None
+            else "-- --"
+        )
 
     def formatTime(self) -> str:
         if self.runtime is not None:
             hours, minutes = divmod(self.runtime, 60)
-            return f'{hours}h {minutes}m'
+            return f"{hours}h {minutes}m"
         else:
-            return '-- --'
+            return "-- --"
 
     def getListTrailers(self) -> str:
         if self.trailer is not None:
             self.trailers.append(self.trailer)
             return formatTrailers(filterTrailerByService(self.trailers))
         else:
-            search = self.slug.replace('-', '+')
+            search = self.slug.replace("-", "+")
             return f"[bold blue][link=https://www.youtube.com/results?search_query={search}]Search Youtube[/link]"
 
     def formatSources(self) -> str:
-        values = list(map(lambda x: x['source_name'], self.availability))
+        values = list(map(lambda x: x["source_name"], self.availability))
         return formatSources(values)
 
     def createUrl(self):
-        return fullUrl('m', self.slug)
+        return fullUrl("m", self.slug)
 
     def imdbStr(self) -> str:
         if self.imdb_rating != None:
             return str(self.imdb_rating)
         else:
-            return '-.-'
+            return "-.-"

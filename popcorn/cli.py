@@ -1,26 +1,26 @@
-import typer
 from datetime import datetime
-from rich.console import Console
-from rich.table import Table
-from rich.panel import Panel
-from rich.tree import Tree
-from rich.prompt import Prompt
 
-from popcorn.controller import transformItem, searchReel, person_reel
+import typer
+from rich.console import Console
+from rich.panel import Panel
+from rich.prompt import Prompt
+from rich.table import Table
+from rich.tree import Tree
+
+from popcorn.api.models.PersonApi import PersonApi
+from popcorn.api.models.Result import Result
+from popcorn.api.models.SearchApi import ContentType, Item
+from popcorn.controller import person_reel, searchReel, transformItem
 from popcorn.models.ItemMovie import ItemMovie
 from popcorn.models.ItemShow import ItemShow
-from popcorn.models.Search import Search
 from popcorn.models.Person import Person
-from popcorn.tables.table_details_movie import table_details
-from popcorn.tables.table_person import table_details_person
-from popcorn.tables.tableDetailsShow import table_details_show
-from popcorn.tables.table_search import tableSearch
+from popcorn.models.Search import Search
 from popcorn.tables.people import people, people_biography, person_media
 from popcorn.tables.sources import columns, columnsSeasons
-from popcorn.api.models.Result import Result
-from popcorn.api.models.PersonApi import PersonApi
-from popcorn.api.models.SearchApi import ContentType
-from popcorn.api.models.SearchApi import Item
+from popcorn.tables.table_details_movie import table_details
+from popcorn.tables.table_person import table_details_person
+from popcorn.tables.table_search import tableSearch
+from popcorn.tables.tableDetailsShow import table_details_show
 from popcorn.utils import formatDate
 
 app = typer.Typer(help="PopCorn Show")
@@ -128,9 +128,9 @@ def __showMovie(movie: ItemMovie):
 
 def __choosePerson(list: list[Person]):
     number = Prompt.ask(
-        "[blue]Enter the person's number between 1 to "+
-            f"{1 if list.__len__() == 1 else list.__len__()} "+ 
-            "for details - Zero to exit\n"
+        "[blue]Enter the person's number between 1 to "
+        + f"{1 if list.__len__() == 1 else list.__len__()} "
+        + "for details - Zero to exit\n"
     )
     try:
         value = int(number)
@@ -149,26 +149,28 @@ def __showPerson(person: PersonApi):
     tree.add(table_details_person(person), highlight=False)
     if person.biography is not None:
         tree.add(people_biography(person.biography))
-    if person.initial_credits.__len__() > 0:        
+    if person.initial_credits.__len__() > 0:
         tree.add(person_media(person.initial_credits))
     tree.add(__footer_person__(person))
     console.print(tree)
-    
+
     if person.initial_credits.__len__() > 0:
         choose_media_by_person(person)
 
-        
+
 def choose_media_by_person(person: PersonApi):
-    length = person.initial_credits.__len__() 
-    number = Prompt.ask("[red]Enter the media number 1 to "+
-            f"{1 if length == 1 else length} " +
-        "[red]for details - Zero to exit\n")
+    length = person.initial_credits.__len__()
+    number = Prompt.ask(
+        "[red]Enter the media number 1 to "
+        + f"{1 if length == 1 else length} "
+        + "[red]for details - Zero to exit\n"
+    )
     try:
         value = int(number)
         if value < 1:
             return
-        item: Item = person.initial_credits[value - 1]    
-        media: Result = transformItem(item['slug'], item['content_type'])
+        item: Item = person.initial_credits[value - 1]
+        media: Result = transformItem(item["slug"], item["content_type"])
         chooseTypes(media)
     except (IndexError, ValueError):
         choose_media_by_person(person)
@@ -218,8 +220,10 @@ def __footer_person__(item: PersonApi) -> Panel:
 
 def chooseNumber(list: list[Search], hasError=False):
     item: None
-    number = Prompt.ask(f"[red]For details, write a number between 1 and {list.__len__()}. Zero to exit\n")
-    if hasError or number == '0':
+    number = Prompt.ask(
+        f"[red]For details, write a number between 1 and {list.__len__()}. Zero to exit\n"
+    )
+    if hasError or number == "0":
         return
 
     try:
@@ -239,12 +243,3 @@ def chooseNumber(list: list[Search], hasError=False):
     if item is not None:
         result = transformItem(item.slug, item.type)
         fillByType(result)
-
-
-# def init():
-    # print("POPCORN SHOW! - CLI") CRIAR TELA DE BOAS VINDAS
-    # app()
-# 
-# 
-# if __name__ == "__main__":
-    # typer.run(init())

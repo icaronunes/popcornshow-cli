@@ -1,5 +1,6 @@
 from typing import Optional
 
+
 class Links:
     web: str
     ios: Optional[str]

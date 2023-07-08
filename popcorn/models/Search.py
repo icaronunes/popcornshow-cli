@@ -1,9 +1,11 @@
 from dataclasses import dataclass
-from popcorn.utils import createUrl as fullUrl, formatSources, formatType, formatDate
+
+from popcorn.utils import createUrl as fullUrl
+from popcorn.utils import formatDate, formatSources, formatType
 
 
 @dataclass
-class Search():
+class Search:
     id: int
     title: str
     release: str
@@ -34,4 +36,4 @@ class Search():
         if self.imdb != None:
             return str(self.imdb)
         else:
-            return '-.-'
+            return "-.-"

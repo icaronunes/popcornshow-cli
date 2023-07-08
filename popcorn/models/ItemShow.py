@@ -1,18 +1,20 @@
+from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
-from popcorn.utils import createUrl as fullUrl, formatTrailers, filterTrailerByService, formatDate
-from popcorn.tables.TableInterface import TableInterface
-from popcorn.models.Seasons import Season
+
+from popcorn.models.Metadata import Metadata
 from popcorn.models.Person import Person
-from popcorn.models.SourceAdPlacement import SourceAdPlacement
-from popcorn.models.ScoreBreakdown import ScoreBreakdown
-from popcorn.models.Tag import Tag
 from popcorn.models.ReelgoodScores import ReelgoodScores
 from popcorn.models.RegionalAvailability import RegionalAvailability
-from popcorn.models.Metadata import Metadata
+from popcorn.models.ScoreBreakdown import ScoreBreakdown
+from popcorn.models.Seasons import Season
+from popcorn.models.SourceAdPlacement import SourceAdPlacement
+from popcorn.models.Tag import Tag
 from popcorn.models.Trailer import Trailer
 from popcorn.models.TVShowEpisode import TVShowEpisode
-from dataclasses import dataclass
+from popcorn.tables.TableInterface import TableInterface
+from popcorn.utils import createUrl as fullUrl
+from popcorn.utils import filterTrailerByService, formatDate, formatTrailers
 
 
 @dataclass
@@ -20,7 +22,7 @@ class Android:
     episode_id: str
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Android':
+    def from_dict(obj: Any) -> "Android":
         _episode_id = str(obj.get("episode_id"))
         return Android(_episode_id)
 
@@ -30,7 +32,7 @@ class Ios:
     episode_id: str
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Ios':
+    def from_dict(obj: Any) -> "Ios":
         _episode_id = str(obj.get("episode_id"))
         return Ios(_episode_id)
 
@@ -42,7 +44,7 @@ class Links:
     android: str
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Links':
+    def from_dict(obj: Any) -> "Links":
         _web = str(obj.get("web"))
         _ios = str(obj.get("ios"))
         _android = str(obj.get("android"))
@@ -57,7 +59,7 @@ class References:
     # webos: Webos
 
     @staticmethod
-    def from_dict(obj: Any) -> 'References':
+    def from_dict(obj: Any) -> "References":
         _web = Web.from_dict(obj.get("web"))
         _ios = Ios.from_dict(obj.get("ios"))
         _android = Android.from_dict(obj.get("android"))
@@ -72,7 +74,7 @@ class SourceData:
     web_link: str
 
     @staticmethod
-    def from_dict(obj: Any) -> 'SourceData':
+    def from_dict(obj: Any) -> "SourceData":
         _links = Links.from_dict(obj.get("links"))
         _references = References.from_dict(obj.get("references"))
         _web_link = str(obj.get("web_link"))
@@ -84,7 +86,7 @@ class Web:
     episode_id: str
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Web':
+    def from_dict(obj: Any) -> "Web":
         _episode_id = str(obj.get("episode_id"))
         return Web(_episode_id)
 
@@ -94,7 +96,7 @@ class Webos:
     episode_id: str
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Webos':
+    def from_dict(obj: Any) -> "Webos":
         _episode_id = str(obj.get("episode_id"))
         return Webos(_episode_id)
 
@@ -148,7 +150,53 @@ class ItemShow(TableInterface):
     seasons = list[Season]
     episodes = list[TVShowEpisode]
 
-    def __init__(self,  metadata: Metadata, id: str, slug: str, title: str, overview: str, reelgood_synopsis: str, classification: str, released_on: datetime, trailer: Trailer, trailers: list[Trailer], has_poster: bool, has_backdrop: bool, imdb_rating: float, rt_critics_rating: None, rt_audience_rating: int, last_modified_at: datetime, user_rating: None, user_lists: None, sources: list[str], on_free: bool, on_rent_purchase: bool, genres: list[int], tags: list[Tag], countries: list[str], people: list[Person], score_breakdown: ScoreBreakdown, reelgood_scores: ReelgoodScores, regional_availability: RegionalAvailability, source_ad_placement: SourceAdPlacement, source_ad_placements: list[SourceAdPlacement], season_count: int, tracking: bool, completed_on: bool, returning_on: str, unwatched: int, coming_on: str, has_new: bool, recommended_episode: list[Recommended_episode], imdb_votes: int, seasons: list[Season], episodes: list[TVShowEpisode], episode_availability: list[any], rating_stats: any = {}, reviews_count: int = 0) -> None:
+    def __init__(
+        self,
+        metadata: Metadata,
+        id: str,
+        slug: str,
+        title: str,
+        overview: str,
+        reelgood_synopsis: str,
+        classification: str,
+        released_on: datetime,
+        trailer: Trailer,
+        trailers: list[Trailer],
+        has_poster: bool,
+        has_backdrop: bool,
+        imdb_rating: float,
+        rt_critics_rating: None,
+        rt_audience_rating: int,
+        last_modified_at: datetime,
+        user_rating: None,
+        user_lists: None,
+        sources: list[str],
+        on_free: bool,
+        on_rent_purchase: bool,
+        genres: list[int],
+        tags: list[Tag],
+        countries: list[str],
+        people: list[Person],
+        score_breakdown: ScoreBreakdown,
+        reelgood_scores: ReelgoodScores,
+        regional_availability: RegionalAvailability,
+        source_ad_placement: SourceAdPlacement,
+        source_ad_placements: list[SourceAdPlacement],
+        season_count: int,
+        tracking: bool,
+        completed_on: bool,
+        returning_on: str,
+        unwatched: int,
+        coming_on: str,
+        has_new: bool,
+        recommended_episode: list[Recommended_episode],
+        imdb_votes: int,
+        seasons: list[Season],
+        episodes: list[TVShowEpisode],
+        episode_availability: list[any],
+        rating_stats: any = {},
+        reviews_count: int = 0,
+    ) -> None:
         self.metadata = metadata
         self.id = id
         self.slug = slug
@@ -193,10 +241,11 @@ class ItemShow(TableInterface):
         self.rating_stats = rating_stats
         self.reviews_count = reviews_count
 
-    def get_number_seasons(self): return str(self.season_count)
+    def get_number_seasons(self):
+        return str(self.season_count)
 
     def createUrl(self):
-        return fullUrl('s', self.slug)
+        return fullUrl("s", self.slug)
 
     def get_overview(self):
         return self.overview
@@ -205,13 +254,15 @@ class ItemShow(TableInterface):
         return self.formatDate()
 
     def get_time(self) -> str:
-        return '-- --'
+        return "-- --"
 
     def get_imdb(self) -> str:
         return str(self.imdb_rating)
 
     def get_classification(self) -> str:
-        return f"[b][white]{self.classification}" if self.classification else 'Who knows?'
+        return (
+            f"[b][white]{self.classification}" if self.classification else "Who knows?"
+        )
 
     def get_trailers(self) -> str:
         return self.getListTrailers()
@@ -221,8 +272,12 @@ class ItemShow(TableInterface):
             self.trailers.append(self.trailer)
             return formatTrailers(filterTrailerByService(self.trailers))
         else:
-            search = self.slug.replace('-', '+')
+            search = self.slug.replace("-", "+")
             return f"[bold blue][link=https://www.youtube.com/results?search_query={search}]Search Youtube[/link]"
 
     def formatDate(self) -> str:
-        return str(formatDate(self.released_on).date()) if self.released_on is not None else '-- --'
+        return (
+            str(formatDate(self.released_on).date())
+            if self.released_on is not None
+            else "-- --"
+        )

@@ -1,4 +1,3 @@
-
 class Trailer:
     site: str
     key: str

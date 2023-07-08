@@ -1,7 +1,5 @@
-
-
-from popcorn.models.Search import Search
 from popcorn.api.models.SearchApi import Item
+from popcorn.models.Search import Search
 
 
 def formatList(items: list[Item]) -> list[Search]:
@@ -9,12 +7,12 @@ def formatList(items: list[Item]) -> list[Search]:
         index, item = values
         return Search(
             id=index,
-            title=item['title'],
-            imdb=item['imdb_rating'],
-            type=item['content_type'],
-            release=item['released_on'],
-            online=item['sources'],
-            slug=item['slug']
+            title=item["title"],
+            imdb=item["imdb_rating"],
+            type=item["content_type"],
+            release=item["released_on"],
+            online=item["sources"],
+            slug=item["slug"],
         )
 
     result = map(lambda item: dto(item), enumerate(items))

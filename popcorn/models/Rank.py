@@ -1,5 +1,6 @@
 from popcorn.models.ListingKey import ListingKey
 
+
 class Rank:
     rank: int
     text: str

@@ -1,5 +1,5 @@
-from popcorn.models.Links import Links
 from popcorn.models.Creative import Creative
+from popcorn.models.Links import Links
 
 
 class SourceAdPlacement:
@@ -21,7 +21,26 @@ class SourceAdPlacement:
     creative: Creative
     links: Links
 
-    def __init__(self, placement_type: str, source_id: str, source_name: str, access_type: int, image_url: None, title_copy: str, short_deal_copy: str, long_deal_copy: str, additional_copy: None, button_call_to_action: str, landing_page_link: None, use_deeplink: bool, deeplink: str, inline_position: str, min_price: float, creative: Creative, links: Links) -> None:
+    def __init__(
+        self,
+        placement_type: str,
+        source_id: str,
+        source_name: str,
+        access_type: int,
+        image_url: None,
+        title_copy: str,
+        short_deal_copy: str,
+        long_deal_copy: str,
+        additional_copy: None,
+        button_call_to_action: str,
+        landing_page_link: None,
+        use_deeplink: bool,
+        deeplink: str,
+        inline_position: str,
+        min_price: float,
+        creative: Creative,
+        links: Links,
+    ) -> None:
         self.placement_type = placement_type
         self.source_id = source_id
         self.source_name = source_name

@@ -1,5 +1,6 @@
-from typing import Optional
 from dataclasses import dataclass
+from typing import Optional
+
 from popcorn.api.models.SearchApi import Item
 
 
@@ -9,11 +10,11 @@ class PersonApi:
     id: str
     slug: str
     name: str
-    birthplace: str|None
+    birthplace: str | None
     birthdate: Optional[str]
     deathdate: Optional[str]
     gender: str
-    biography: str|None
+    biography: str | None
     homepage: Optional[str]
     has_poster: bool
     has_square: bool

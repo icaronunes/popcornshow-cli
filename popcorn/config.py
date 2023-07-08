@@ -1,1 +1,1 @@
-URL_BASE = 'https://reelgood.com/'
+URL_BASE = "https://reelgood.com/"
