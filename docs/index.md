@@ -1,6 +1,6 @@
 # Bem-Vindo ao PopCorn Show Cli
 :corn: :corn: :corn: :corn: :corn: :corn: :corn: :corn: :corn: :corn:
-## Para a versão Android visite: [play.google.com/popcornshow](https://play.google.com/store/apps/details?id=br.com.icaro.filme) ![alt text](assets/popcorn.png)
+## A versão Android visite: [play.google.com/popcornshow](https://play.google.com/store/apps/details?id=br.com.icaro.filme) ![alt text](assets/popcorn.png)
 
 
 
@@ -19,35 +19,37 @@
 * `cli --type -t [m] [s]` - Busca por apenas o tipo escolhido. Filme ou Série.
 * `cli  -l --luck` - Retorna/escolhe a primeira opção retornada pela busca.
 * `cli -h` - Mostra a tela de Ajuda padrão.
+* em cada tela, pode haver uma opção de escolha para detalhes
 
 ## Exemplos
 
-```bash
- python cli.py 'lost'
- 
- python cli.py 'lost' --year 2004
-
- python cli.py 'lost' -type s    
-
- python cli.py 'lost' --luck
+```bash 
+python cli.py 'lost'
+python cli.py 'lost' --year 2004
+python cli.py 'lost' -type s    
+python cli.py 'lost' --luck
 ```
 
 # Informações retornadas
 - Titulo
 - Nota IMDB
 - Pessoas do Filme/Série
+- Detalhes sobre atores
 - Descrição
 - Lançamento
 - Classificação
 - Trailers
-- Onde assistir   
+- Onde assistir
 
 # Telas
-## Busca 
+### Busca 
 ![](assets/cli_search.png)
 
-## Filmes
+### Filmes
 ![](assets/show_movie.png)  
   
-## Séries
+### Séries
 ![](assets/show_serie.png)  
+
+### Pessoa
+![](assets/person.png)

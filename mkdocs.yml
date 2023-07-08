@@ -12,7 +12,7 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          paths: [api, models, tables, cli]
+          paths: [popcorn]
           import:
             - https://docs.python-requests.org/en/master/objects.inv
   - search
