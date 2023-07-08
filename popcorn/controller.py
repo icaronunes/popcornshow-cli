@@ -1,7 +1,6 @@
 import json
 
-from popcorn.api.api import (get_person_details, getMovieApi, getTvShowApi,
-                             search)
+from popcorn.api.api import get_person_details, getMovieApi, getTvShowApi, search
 from popcorn.api.models.PersonApi import PersonApi
 from popcorn.api.models.Result import Result
 from popcorn.api.models.SearchApi import ContentType

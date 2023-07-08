@@ -14,8 +14,12 @@ from popcorn.models.Tag import Tag
 from popcorn.models.Trailer import Trailer
 from popcorn.tables.TableInterface import TableInterface
 from popcorn.utils import createUrl as fullUrl
-from popcorn.utils import (filterTrailerByService, formatDate, formatSources,
-                           formatTrailers)
+from popcorn.utils import (
+    filterTrailerByService,
+    formatDate,
+    formatSources,
+    formatTrailers,
+)
 
 
 class References:
