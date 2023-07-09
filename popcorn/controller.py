@@ -15,10 +15,12 @@ def searchReel(query: str, year: int | None, type: str | None) -> list[Search]:
     result: Result = search(query=query)
     if result.error is None:
         objJson = json.loads(result.value)
+        if objJson["items"].__len__() == 0:
+            return []
         listSearch = filtersArgs(objJson["items"], year, type)
         return formatList(listSearch)
     else:
-        return []
+        []
 
 
 def person_reel(id) -> Result:
