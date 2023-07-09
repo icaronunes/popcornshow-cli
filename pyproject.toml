@@ -17,10 +17,9 @@ line_length = 88
 [tool.taskipy.tasks]
 lint = "black --check --diff ./popcorn ./tests && isort --check --diff ./popcorn ./tests"
 pre_test = "task lint"
-test = "pytest -s -x ./tests --cov=popcorn -vv"
+test = "pytest -s -x ./tests --cov=popcorn --cov-report=xml -vv"
 post_test = "coverage html"
 docs = "mkdocs server"
-
 
 [tool.poetry.dependencies]
 python = "^3.10"
