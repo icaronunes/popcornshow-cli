@@ -9,7 +9,7 @@ from rich.tree import Tree
 
 from popcorn.api.models.PersonApi import PersonApi
 from popcorn.api.models.Result import Result
-from popcorn.api.models.SearchApi import ContentType, Item
+from popcorn.api.models.SearchApi import Item
 from popcorn.controller import person_reel, searchReel, transformItem
 from popcorn.models.ItemMovie import ItemMovie
 from popcorn.models.ItemShow import ItemShow

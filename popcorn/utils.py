@@ -4,22 +4,29 @@ from popcorn.config import URL_BASE
 from popcorn.models.Trailer import Trailer
 
 
-def formatDate(date: str | None) -> datetime | str:
+def formatDate(date: str | None) -> datetime | str | None:
     if date is None:
-        return date
-    formatDate = date[:19]
-    return datetime.strptime(formatDate, "%Y-%m-%dT%H:%M:%S")
+        return None
+    try:
+        formatDate = date[:19]
+        return datetime.strptime(formatDate, "%Y-%m-%dT%H:%M:%S")
+    except:
+        return None
 
 
-def formatFullDate(date: str | None) -> datetime:
-    if date == None:
+def formatFullDate(date: str | None) -> datetime | str:
+    if date is None:
         return "- -"
-    return datetime.strptime(date, "%Y-%m-%dT%H:%M:%S")
+    try:
+        return datetime.strptime(date, "%Y-%m-%dT%H:%M:%S")
+    except ValueError:
+        return "- -"
 
 
 def formatDateStr(date: str | None) -> str:
     if date is None:
         return "--"
+
     try:
         formatDate = date[:19]
         return str(datetime.strptime(formatDate, "%Y-%m-%dT%H:%M:%S").date())
