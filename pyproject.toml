@@ -23,7 +23,7 @@ docs = "mkdocs server"
 
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 typer = "0.7.0"
 typer-cli = "0.0.13"
 click = "8.1.3"
