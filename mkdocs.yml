@@ -17,5 +17,18 @@ plugins:
             - https://docs.python-requests.org/en/master/objects.inv
   - search
 
-markdown_extensions:  
-  - pymdownx.emoji:  
+markdown_extensions:
+  - pymdownx.emoji:
+
+
+
+
+
+
+
+
+
+
+
+
+    
