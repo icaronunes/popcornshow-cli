@@ -9,6 +9,7 @@ readme = "README.md"
 
 [tool.poetry.scripts]
 popcorn = "popcorn.cli:app"
+popcornshow = "popcorn.cli:app"
 
 [tool.isort]
 profile = "black"
@@ -19,7 +20,7 @@ lint = "black --check --diff ./popcorn ./tests && isort --check --diff ./popcorn
 pre_test = "task lint"
 test = "pytest -s -x ./tests --cov=popcorn --cov-report=xml -vv"
 post_test = "coverage html"
-docs = "mkdocs server"
+docs = "mkdocs serve"
 
 [tool.poetry.dependencies]
 python = "^3.10"
