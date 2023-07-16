@@ -14,7 +14,7 @@ from popcorn.models.Trailer import Trailer
 from popcorn.models.TVShowEpisode import TVShowEpisode
 from popcorn.tables.TableInterface import TableInterface
 from popcorn.utils import createUrl as fullUrl
-from popcorn.utils import filterTrailerByService, formatDate, formatTrailers
+from popcorn.utils import filterTrailerByService, format_date, formatTrailers
 
 
 @dataclass
@@ -251,7 +251,7 @@ class ItemShow(TableInterface):
         return self.overview
 
     def get_date(self) -> str:
-        return self.formatDate()
+        return self.format_date()
 
     def get_time(self) -> str:
         return "-- --"
@@ -275,9 +275,9 @@ class ItemShow(TableInterface):
             search = self.slug.replace("-", "+")
             return f"[bold blue][link=https://www.youtube.com/results?search_query={search}]Search Youtube[/link]"
 
-    def formatDate(self) -> str:
+    def format_date(self) -> str:
         return (
-            str(formatDate(self.released_on).date())
+            str(format_date(self.released_on).date())
             if self.released_on is not None
             else "-- --"
         )

@@ -10,18 +10,18 @@ from rich.tree import Tree
 from popcorn.api.models.PersonApi import PersonApi
 from popcorn.api.models.Result import Result
 from popcorn.api.models.SearchApi import Item
-from popcorn.controller import person_reel, searchReel, transformItem
+from popcorn.controller import person_reel, search_reel, transform_item
 from popcorn.models.ItemMovie import ItemMovie
 from popcorn.models.ItemShow import ItemShow
 from popcorn.models.Person import Person
 from popcorn.models.Search import Search
 from popcorn.tables.people import people, people_biography, person_media
-from popcorn.tables.sources import columns, columnsSeasons
+from popcorn.tables.sources import collumn_seasons, pop_collumns
 from popcorn.tables.table_details_movie import table_details
 from popcorn.tables.table_person import table_details_person
-from popcorn.tables.table_search import tableSearch
+from popcorn.tables.table_search import table_search
 from popcorn.tables.tableDetailsShow import table_details_show
-from popcorn.utils import formatDate
+from popcorn.utils import format_date
 
 app = typer.Typer(help="PopCorn Show")
 console = Console()
@@ -34,15 +34,15 @@ def search(
     type: str = typer.Option(None, "--type", "-t", help="'m' or 's'"),
     luck: bool = typer.Option(False, "--luck", "-l"),
 ):
-    list = searchReel(name, year=year, type=type)
+    list = search_reel(name, year=year, type=type)
     if list:
         if luck:
             order = sorted(list, key=lambda x: x.imdbStr(), reverse=True)
-            result = transformItem(order[0].slug, order[0].type)
+            result = transform_item(order[0].slug, order[0].type)
             chooseTypes(result)
         else:
-            console.print(tableSearch(list))
-            chooseNumber(list)
+            console.print(table_search(list))
+            choose_number(list)
     else:
         typer.echo("Not Found")
 
@@ -73,7 +73,7 @@ def __showTvshow(show: ItemShow):
     tree = Tree("")
     tree.add(__rich__())
     details = Tree(
-        f":blue_book: [blue][b]Details - {show.title} {formatDate(show.released_on).year}[/b] - :link: [blue][link={show.createUrl()}]Details in Reelgood.com[/link]",
+        f":blue_book: [blue][b]Details - {show.title} {format_date(show.released_on).year}[/b] - :link: [blue][link={show.createUrl()}]Details in Reelgood.com[/link]",
         expanded=True,
     )
     details.add(table_details_show(show), highlight=False)
@@ -89,7 +89,7 @@ def __showTvshow(show: ItemShow):
             f":movie_camera: [red][b]Where to Watch: {show.title} [/red]| [yellow]With Season {show.seasons.__len__()}"
         )
         tv.add(
-            columnsSeasons(show.episodes, reversed(show.seasons)),
+            collumn_seasons(show.episodes, reversed(show.seasons)),
             expanded=True,
             highlight=False,
         )
@@ -105,7 +105,7 @@ def __showMovie(movie: ItemMovie):
     tree = Tree("")
     tree.add(__rich__())
     details = Tree(
-        f":blue_book:[blue][b] Details - {movie.title} {formatDate(movie.released_on).year if formatDate(movie.released_on) != None else '-- --'}[/b] - :link: [blue][link={movie.createUrl()}]Details in Reelgood.com[/link]",
+        f":blue_book:[blue][b] Details - {movie.title} {format_date(movie.released_on).year if format_date(movie.released_on) != None else '-- --'}[/b] - :link: [blue][link={movie.createUrl()}]Details in Reelgood.com[/link]",
         expanded=True,
     )
     details.add(table_details(movie), highlight=False)
@@ -118,7 +118,7 @@ def __showMovie(movie: ItemMovie):
         tree.add(person)
     if movie.availability:
         tv = Tree(f":movie_camera:[red][b] Where to Watch: {movie.title}")
-        tv.add(columns(movie.availability), expanded=True, highlight=False)
+        tv.add(pop_collumns(movie.availability), expanded=True, highlight=False)
         tree.add(tv)
     tree.add(__footer__(movie))
     console.print(tree)
@@ -170,8 +170,8 @@ def choose_media_by_person(person: PersonApi):
         if value < 1:
             return
         item: Item = person.initial_credits[value - 1]
-        media: Result = transformItem(item["slug"], item["content_type"])
-        chooseTypes(media)
+        media: Result = trabsform_item(item["slug"], item["content_type"])
+        oseTypes(media)
     except (IndexError, ValueError):
         choose_media_by_person(person)
 
@@ -218,7 +218,7 @@ def __footer_person__(item: PersonApi) -> Panel:
     return Panel(grid, style="red1 on black")
 
 
-def chooseNumber(list: list[Search], hasError=False):
+def choose_number(list: list[Search], hasError=False):
     item: None
     number = Prompt.ask(
         f"[red]For details, write a number between 1 and {list.__len__()}. Zero to exit\n"
@@ -232,14 +232,14 @@ def chooseNumber(list: list[Search], hasError=False):
             item = list[number - 1]
         else:
             print("Number off the list.")
-            chooseNumber(list, True)
+            choose_number(list, True)
             return
 
     except ValueError:
         print("Number Error! - write '0' to exit ")
-        chooseNumber(list, True)
+        choose_number(list, True)
         return
 
     if item is not None:
-        result = transformItem(item.slug, item.type)
+        result = transform_item(item.slug, item.type)
         fillByType(result)

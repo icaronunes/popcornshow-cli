@@ -4,21 +4,21 @@ from popcorn.api.api import get_person_details, getMovieApi, getTvShowApi, searc
 from popcorn.api.models.PersonApi import PersonApi
 from popcorn.api.models.Result import Result
 from popcorn.api.models.SearchApi import ContentType
-from popcorn.dto import formatList
+from popcorn.dto import format_list
 from popcorn.models.ItemMovie import ItemMovie
 from popcorn.models.ItemShow import ItemShow
 from popcorn.models.Search import Search
-from popcorn.utils import formatDate
+from popcorn.utils import format_date
 
 
-def searchReel(query: str, year: int | None, type: str | None) -> list[Search]:
+def search_reel(query: str, year: int | None, type: str | None) -> list[Search]:
     result: Result = search(query=query)
     if result.error is None:
         objJson = json.loads(result.value)
         if objJson["items"].__len__() == 0:
             return []
         listSearch = filtersArgs(objJson["items"], year, type)
-        return formatList(listSearch)
+        return format_list(listSearch)
     else:
         []
 
@@ -31,7 +31,7 @@ def person_reel(id) -> Result:
         return Result(Exception("Match not Found..."))
 
 
-def transformItem(slug: str, type: str) -> Result:
+def transform_item(slug: str, type: str) -> Result:
     match type:
         case ContentType.M.value:
             movie = getMovieApi(slug)
@@ -52,7 +52,7 @@ def transformItem(slug: str, type: str) -> Result:
 def filterByYear(item, year) -> bool:
     if item["released_on"] == None:
         return True
-    return formatDate(item["released_on"]).year == year
+    return format_date(item["released_on"]).year == year
 
 
 def filterByType(item, type) -> bool:

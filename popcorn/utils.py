@@ -4,7 +4,7 @@ from popcorn.config import URL_BASE
 from popcorn.models.Trailer import Trailer
 
 
-def formatDate(date: str | None) -> datetime | str | None:
+def format_date(date: str | None) -> datetime | str | None:
     if date is None:
         return None
     try:
@@ -14,7 +14,7 @@ def formatDate(date: str | None) -> datetime | str | None:
         return None
 
 
-def formatFullDate(date: str | None) -> datetime | str:
+def format_full_date(date: str | None) -> datetime | str:
     if date is None:
         return "- -"
     try:
@@ -23,7 +23,7 @@ def formatFullDate(date: str | None) -> datetime | str:
         return "- -"
 
 
-def formatDateStr(date: str | None) -> str:
+def format_date_str(date: str | None) -> str:
     if date is None:
         return "--"
 
@@ -50,7 +50,7 @@ def formatType(type: chr) -> str:
         return "- -"
 
 
-def formatSource(item: str) -> str:
+def format_source(item: str) -> str:
     return item.replace("_", " ").title()
 
 

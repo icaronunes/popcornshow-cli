@@ -5,7 +5,7 @@ from popcorn.api.models.PersonApi import PersonApi
 from popcorn.tables.people import people
 from popcorn.tables.sources import source
 from popcorn.tables.TableInterface import TableInterface
-from popcorn.utils import formatDate, formatDateStr
+from popcorn.utils import format_date, format_date_str
 
 topTable = [
     ":scroll: Overview",

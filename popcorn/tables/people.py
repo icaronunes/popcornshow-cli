@@ -7,7 +7,7 @@ from rich.tree import Tree
 
 from popcorn.api.models.SearchApi import Item
 from popcorn.models.ItemMovie import Person
-from popcorn.utils import formatDate
+from popcorn.utils import format_date
 
 works = {
     0: "Director",
@@ -59,7 +59,7 @@ def people_biography(biography: str | None) -> Panel:
 
 def person_media(list: list[Item]) -> Columns:
     def chooseType(idx: int, item: Item) -> str:
-        return f"#{idx + 1}\n[red]{item['title']} \n[green]{formatDate(item['released_on']).date()}\n[yellow]{item['imdb_rating']}"
+        return f"#{idx + 1}\n[red]{item['title']} \n[green]{format_date(item['released_on']).date()}\n[yellow]{item['imdb_rating']}"
 
     directory = [
         Panel(chooseType(idx, item), expand=True) for idx, item in enumerate(list)

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from popcorn.utils import createUrl as fullUrl
-from popcorn.utils import formatDate, formatSources, formatType
+from popcorn.utils import format_date, formatSources, formatType
 
 
 @dataclass
@@ -24,7 +24,7 @@ class Search:
         return fullUrl(self.type, self.slug)
 
     def formatSimpleDate(self):
-        result = formatDate(self.release)
+        result = format_date(self.release)
         if result == None:
             return "----"
         return result.year

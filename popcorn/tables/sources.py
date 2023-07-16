@@ -6,16 +6,16 @@ from popcorn.models.ItemMovie import Availability
 from popcorn.models.Seasons import Availability as AvailabilityShow
 from popcorn.models.Seasons import Season
 from popcorn.models.TVShowEpisode import TVShowEpisode
-from popcorn.utils import formatSource
+from popcorn.utils import format_source
 
 
-def columns(availabilitys: list[Availability]) -> Columns:
+def pop_collumns(availabilitys: list[Availability]) -> Columns:
     return Columns(
         [Panel(panel, expand=True, safe_box=True) for panel in source(availabilitys)]
     )
 
 
-def columnsSeasons(episodes: list[TVShowEpisode], season: list[Season]) -> Columns:
+def collumn_seasons(episodes: list[TVShowEpisode], season: list[Season]) -> Columns:
     return Columns(
         [
             Panel(panel, expand=True, safe_box=True)
@@ -74,7 +74,7 @@ def __getTitle(availability: Availability) -> str:
         and "web_link" in availability["source_data"]
         and "source_name" in availability
     ):
-        return f"[b]{formatSource(availability['source_name'])}[/b] {__minAndMax(availability)} :link: [i][blue]{availability['source_data']['web_link']}[/i]"
+        return f"[b]{format_source(availability['source_name'])}[/b] {__minAndMax(availability)} :link: [i][blue]{availability['source_data']['web_link']}[/i]"
     else:
         return f"[b]{availability['source_name']}[/b]"
 
@@ -100,9 +100,7 @@ def __fistLink(ep: TVShowEpisode, source_name: str) -> str:
 
 
 def __createLinkForSeason(source_name: str, link: str) -> str:
-    return (
-        f":link: [bold blue][link={link}]{formatSource(source_name)}[/link][/bold blue]"
-    )
+    return f":link: [bold blue][link={link}]{format_source(source_name)}[/link][/bold blue]"
 
 
 def __minAndMax(availability: Availability) -> str:

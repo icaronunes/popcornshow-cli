@@ -2,7 +2,7 @@ from popcorn.api.models.SearchApi import Item
 from popcorn.models.Search import Search
 
 
-def formatList(items: list[Item]) -> list[Search]:
+def format_list(items: list[Item]) -> list[Search]:
     def dto(values):
         index, item = values
         return Search(

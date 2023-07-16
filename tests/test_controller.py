@@ -4,8 +4,8 @@ from popcorn.controller import (
     filterByType,
     filtersArgs,
     person_reel,
-    searchReel,
-    transformItem,
+    search_reel,
+    transform_item,
 )
 from popcorn.models.ItemMovie import ItemMovie
 from popcorn.models.ItemShow import ItemShow
@@ -15,17 +15,17 @@ MOVIE = "the-matrix-1999"
 SHOW = "lost-2004"
 
 
-def test_with_empty_searchReel():
-    empty = searchReel(query="return_empty_query", year=None, type=None)
+def test_with_empty_search_reel():
+    empty = search_reel(query="return_empty_query", year=None, type=None)
     assert empty == []
 
 
-def test_with_not_empty_searchReel():
-    empty = searchReel(query="the matrix", year=None, type=None)
+def test_with_not_empty_search_reel():
+    empty = search_reel(query="the matrix", year=None, type=None)
     assert empty.__len__() != 0
 
 
-def test_transformItem():
+def test_transform_item():
     itemSearch = Search(
         id=1,
         title="title",
@@ -35,12 +35,12 @@ def test_transformItem():
         online=[""],
         slug=MOVIE,
     )
-    result: Result = transformItem(itemSearch.slug, itemSearch.type)
+    result: Result = transform_item(itemSearch.slug, itemSearch.type)
     assert result.value
     assert result.error == None
 
 
-def test_transformItem_error_movie():
+def test_transform_item_error_movie():
     typeMovie = ContentType.M.value
     itemSearch = Search(
         id=1,
@@ -51,13 +51,13 @@ def test_transformItem_error_movie():
         online=[""],
         slug="slug_missing",
     )
-    result: Result = transformItem(itemSearch.slug, itemSearch.type)
+    result: Result = transform_item(itemSearch.slug, itemSearch.type)
     assert result.value == None
     assert isinstance(result.error, Exception)
     assert str(result.error) == "Match not Found..."
 
 
-def test_transformItem_error_show():
+def test_transform_item_error_show():
     typeShow = ContentType.S.value
     itemSearch = Search(
         id=1,
@@ -68,13 +68,13 @@ def test_transformItem_error_show():
         online=[""],
         slug="slug_missing",
     )
-    result: Result = transformItem(itemSearch.slug, itemSearch.type)
+    result: Result = transform_item(itemSearch.slug, itemSearch.type)
     assert result.value == None
     assert isinstance(result.error, Exception)
     assert str(result.error) == "Match not Found..."
 
 
-def test_transformItem_success_show():
+def test_transform_item_success_show():
     typeShow = ContentType.S.value
     itemSearch = Search(
         id=1,
@@ -85,12 +85,12 @@ def test_transformItem_success_show():
         online=[""],
         slug=SHOW,
     )
-    result: Result = transformItem(itemSearch.slug, itemSearch.type)
+    result: Result = transform_item(itemSearch.slug, itemSearch.type)
     assert result.error is None
     assert result.value
 
 
-def test_transformItem_with_type_wrong():
+def test_transform_item_with_type_wrong():
     typeShow = "qwert"
     itemSearch = Search(
         id=1,
@@ -101,7 +101,7 @@ def test_transformItem_with_type_wrong():
         online=[""],
         slug=SHOW,
     )
-    result: Result = transformItem(itemSearch.slug, itemSearch.type)
+    result: Result = transform_item(itemSearch.slug, itemSearch.type)
     assert result.value == None
     assert isinstance(result.error, Exception)
     assert str(result.error) == "Match not Found..."

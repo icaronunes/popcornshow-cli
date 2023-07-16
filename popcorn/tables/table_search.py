@@ -1,5 +1,5 @@
 from rich.console import Console
-from rich.table import Column, Table
+from rich.table import Table
 
 from popcorn.models.Search import Search
 
@@ -29,7 +29,7 @@ def __init_table__() -> Table:
     return table
 
 
-def tableSearch(items: list[Search]) -> Table:
+def table_search(items: list[Search]) -> Table:
     table = __init_table__()
     for index, item in enumerate(items):
         __tableItem__(

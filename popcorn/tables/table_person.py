@@ -1,7 +1,7 @@
 from rich.table import Table, box
 
 from popcorn.api.models.PersonApi import PersonApi
-from popcorn.utils import formatDateStr
+from popcorn.utils import format_date_str
 
 topTablePerson = [
     ":scroll: Name",
@@ -39,10 +39,10 @@ def table_details_person(item: PersonApi) -> Table:
         name=item.name,
         birthdate="-- -- --"
         if item.birthdate is None
-        else formatDateStr(item.birthdate),
+        else format_date_str(item.birthdate),
         birthplace="" if item.birthplace is None else item.birthplace,
         deathdate="-- -- --"
         if item.deathdate is None
-        else formatDateStr(item.deathdate),
+        else format_date_str(item.deathdate),
     )
     return table

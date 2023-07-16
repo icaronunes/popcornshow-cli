@@ -7,7 +7,7 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 from typer.testing import CliRunner
 
-from popcorn.cli import app, chooseNumber
+from popcorn.cli import app, choose_number
 from popcorn.models.Search import Search
 
 runner = CliRunner()

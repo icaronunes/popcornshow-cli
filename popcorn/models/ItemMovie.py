@@ -16,7 +16,7 @@ from popcorn.tables.TableInterface import TableInterface
 from popcorn.utils import createUrl as fullUrl
 from popcorn.utils import (
     filterTrailerByService,
-    formatDate,
+    format_date,
     formatSources,
     formatTrailers,
 )
@@ -211,7 +211,7 @@ class ItemMovie(TableInterface):
         return self.overview
 
     def get_date(self) -> str:
-        return self.formatDate()
+        return self.format_date()
 
     def get_time(self) -> str:
         return self.formatTime()
@@ -227,9 +227,9 @@ class ItemMovie(TableInterface):
     def get_trailers(self) -> str:
         return self.getListTrailers()
 
-    def formatDate(self) -> str:
+    def format_date(self) -> str:
         return (
-            str(formatDate(self.released_on).date())
+            str(format_date(self.released_on).date())
             if self.released_on is not None
             else "-- --"
         )
