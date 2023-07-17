@@ -44,7 +44,56 @@ poetry run task
 * testes com pytest na pasta ./popcorn e ./tests
 * caso passe todas a etapa anteriores e enviado um relatorio para [codecov](https://app.codecov.io/gh/icaronunes/popcornshow-cli)
     
-Qualquer erro a pipeline para
+Qualquer erro para a pipeline
 
 
+#### Estrutura padrão das pastas
 
+
+├───popcorn
+│   ├───api
+│   │   ├───models
+│   │   │
+│   │   PersonApi.py
+│   │   Result.py
+│   │   SearchApi.py
+│   ├───models
+│   │      ├───tables
+│   │      .....>>>>
+│    cli.py
+│    config.py
+│    controller.py
+│    dto.py
+│    utils.py
+│    __init__.py
+├───tests
+│   test_cli.py
+│   test_controller.py
+│   test_utils.py
+│   __init__.py
+├───docs
+│   │   develops.md
+│   │   index.md
+│   │
+│   └───assets
+│           android.svg
+│           cli_search.png
+│           favico.ico
+│           help.png
+│           person.png
+│           popcorn.png
+│           show_movie.png
+│           show_serie.png
+│
+ .coverage
+ .gitignore
+ coverage.xml
+ LICENSE
+ mkdocs.yml
+ poetry.lock
+ pyproject.toml
+ pyvenv.cfg
+ README.md
+
+END
+   

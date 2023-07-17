@@ -4,7 +4,7 @@ CLI com o objetivo de obter informações sobre filmes/séries e pessoas envoldi
 Apresentando as informações mais relevantes diretamente no seu terminal.
 
 - nome
-- ==link para streming==
+- link para streming
 - datas
 - elenco/produção
 - trailer
@@ -40,7 +40,7 @@ pip install popcornshow
 * `popcornshow  -l --luck` - Retorna/escolhe a primeira opção retornada pela busca.
 * `popcornshow -h` - Mostra a tela de Ajuda padrão.
 
-* em cada tela, pode haver uma opção de escolha para detalhes
+* em cada tela, pode haver uma opção de navegação
 
 ![](docs/assets/help.png)
 
@@ -49,6 +49,5 @@ pip install popcornshow
 Aplicação feita 100% em python
 
 Informações obtidas do site [RealGood](https://reelgood.com/)
-### Desenvolvido por [Icaro Nunes](https://www.github.com/icaronunes)  
 
 <img src=docs/assets/android.png width=120px />Há uma versão mais completa para Android: [play.google.com/popcornshow](https://play.google.com/store/apps/details?id=br.com.icaro.filme) ![alt text](docs/assets/popcorn.png)
