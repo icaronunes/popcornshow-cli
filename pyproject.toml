@@ -3,9 +3,18 @@ name = "popcorn"
 packages = [{include = "popcorn"}]
 version = "0.1.0"
 description = "Show information about movie and movies"
-authors = ["Icaro <icarornunes@gmail.com>"]
+authors = ["Icaro Nunes <icarornunes@gmail.com>"]
 license = "BeerWare"
 readme = "README.md"
+classifiers = [
+  "Topic :: Utilities",
+  "Programming Language :: Python :: 3"
+]
+
+[tool.poetry.urls]
+"Doc" = "https://popcornshow-cli.readthedocs.io/en/latest/"
+"Cod" = "https://github.com/icaronunes/popcornshow-cli"
+"Bug Tracker" = "https://github.com/icaronunes/popcornshow-cli/actions"
 
 [tool.poetry.scripts]
 popcorn = "popcorn.cli:app"
