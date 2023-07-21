@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "popcorn"
+name = "popcornshow"
 packages = [{include = "popcorn"}]
 version = "0.1.0"
 description = "Show information about movie and movies"
