@@ -49,7 +49,7 @@ Qualquer erro para a pipeline
 
 #### Estrutura padrão das pastas
 
-
+```bash
 ├───popcorn
 │   ├───api
 │   │   ├───models
@@ -96,4 +96,4 @@ Qualquer erro para a pipeline
  README.md
 
 END
-   
+```  
