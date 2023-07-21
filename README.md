@@ -1,6 +1,10 @@
 ### 🍿🍿🍿 Popcorn Show CLI 🍿🍿🍿
 
-CLI com o objetivo de obter informações sobre filmes/séries e pessoas envoldidas na produção via terminal.
+[![Documentation Status](https://readthedocs.org/projects/popcornshow-cli/badge/?version=latest)](https://popcornshow-cli.readthedocs.io/en/latest/?badge=latest)
+[![CI](https://github.com/icaronunes/popcornshow-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/icaronunes/popcornshow-cli/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/icaronunes/popcornshow-cli/branch/master/graph/badge.svg?token=OL7MWQKQKR)](https://codecov.io/gh/icaronunes/popcornshow-cli)
+
+CLI com o objetivo de obter informações sobre filmes/séries e pessoas envolvidas na produção via terminal.
 Apresentando as informações mais relevantes diretamente no seu terminal.
 
 - nome
@@ -21,16 +25,16 @@ pip install popcornshow
 ## Prints
 
 **Busca** 
-![](docs/assets/cli_search.png)
+![](https://popcornshow-cli.readthedocs.io/en/latest/assets/cli_search.png)
 
 **Filmes**
-![](docs/assets/show_movie.png)  
+![](https://popcornshow-cli.readthedocs.io/en/latest/assets/show_movie.png)  
 
 **Séries**
-![](docs/assets/show_serie.png)  
+![](https://popcornshow-cli.readthedocs.io/en/latest/assets/show_serie.png)  
 
 **Pessoa**
-![](docs/assets/person.png)
+ci![](https://popcornshow-cli.readthedocs.io/en/latest/assets/person.png)
 
 ## Comandos para usar
 
@@ -45,9 +49,11 @@ pip install popcornshow
 ![](docs/assets/help.png)
 
 ## Sobre
+Documentação do [ReadTheDocs](https://popcornshow-cli.readthedocs.io/en/latest/?)
+
 
 Aplicação feita 100% em python
 
 Informações obtidas do site [RealGood](https://reelgood.com/)
 
-<img src=docs/assets/android.png width=120px />Há uma versão mais completa para Android: [play.google.com/popcornshow](https://play.google.com/store/apps/details?id=br.com.icaro.filme) ![alt text](docs/assets/popcorn.png)
+<img src=https://popcornshow-cli.readthedocs.io/en/latest/assets/android.svg width=50px />Há uma versão mais completa para Android: [play.google.com/popcornshow](https://play.google.com/store/apps/details?id=br.com.icaro.filme) ![alt text](https://popcornshow-cli.readthedocs.io/en/latest/assets/popcorn.png)
