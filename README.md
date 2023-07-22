@@ -4,56 +4,57 @@
 [![CI](https://github.com/icaronunes/popcornshow-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/icaronunes/popcornshow-cli/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/icaronunes/popcornshow-cli/branch/master/graph/badge.svg?token=OL7MWQKQKR)](https://codecov.io/gh/icaronunes/popcornshow-cli)
 
-CLI com o objetivo de obter informações sobre filmes/séries e pessoas envolvidas na produção via terminal.
-Apresentando as informações mais relevantes diretamente no seu terminal.
+CLI with the objective of obtaining information about movies/series and people involved in production via the terminal.
+Presenting the most relevant information directly on your terminal.
 
-- nome
-- link para streming
-- datas
-- elenco/produção
-- trailer
-- notas do IMDB
-- resumo da obra
+- Title
+- Streaming link
+- Dates
+- Cast/Crew
+- Trailer
+- IMDB ratings
+- Summary
 
-possibilidade de navegar entre pessoas e obras
+Ability to navigate between people and works.
 
-## Instalação
+## Installation
 
-```` bash
+```bash
 pip install popcornshow
-````
-## Prints
+```
 
-**Busca** 
+**Search** 
 ![](https://popcornshow-cli.readthedocs.io/en/latest/assets/cli_search.png)
 
-**Filmes**
+**Movies**
 ![](https://popcornshow-cli.readthedocs.io/en/latest/assets/show_movie.png)  
 
-**Séries**
+**Shows**
 ![](https://popcornshow-cli.readthedocs.io/en/latest/assets/show_serie.png)  
 
-**Pessoa**
+**Person**
 ci![](https://popcornshow-cli.readthedocs.io/en/latest/assets/person.png)
 
-## Comandos para usar
+## Commands to use
 
-* `popcornshow [nome do filme ou serie]` - Busca por uma lista que corresponde a texto enviada.
-* `popcornshow --year -y [2000]` - Busca por uma midia com esse ano de lançamento.
-* `popcornshow --type -t [m] [s]` - Busca por apenas o tipo escolhido. Filme ou Série.
-* `popcornshow  -l --luck` - Retorna/escolhe a primeira opção retornada pela busca.
-* `popcornshow -h` - Mostra a tela de Ajuda padrão.
+* popcornshow [movie or series name] - Search for a list that matches the given text.
 
-* em cada tela, pode haver uma opção de navegação
+* popcornshow --year -y [2000] - Search for media released in a specific year.
 
-![](docs/assets/help.png)
+* popcornshow --type -t [m] [s] - Search for media of a specific type. Movie or Series.
 
-## Sobre
-Documentação do [ReadTheDocs](https://popcornshow-cli.readthedocs.io/en/latest/?)
+* popcornshow -l --luck - Return/choose the first option returned by the search.
+
+* popcornshow -h - Show the default Help screen.
+
+#### on each screen, there might be a navigation option
 
 
-Aplicação feita 100% em python
+## About
+Documentation on [ReadTheDocs](https://popcornshow-cli.readthedocs.io/en/latest/?)
 
-Informações obtidas do site [RealGood](https://reelgood.com/)
+Application made 100% in Python
 
-<img src=https://popcornshow-cli.readthedocs.io/en/latest/assets/android.svg width=50px />Há uma versão mais completa para Android: [play.google.com/popcornshow](https://play.google.com/store/apps/details?id=br.com.icaro.filme) ![alt text](https://popcornshow-cli.readthedocs.io/en/latest/assets/popcorn.png)
+Information obtained from [RealGood](https://reelgood.com/)
+
+<img src=https://popcornshow-cli.readthedocs.io/en/latest/assets/android.svg width=50px />There is a more comprehensive version for Android: [play.google.com/popcornshow](https://play.google.com/store/apps/details?id=br.com.icaro.filme) ![alt text](https://popcornshow-cli.readthedocs.io/en/latest/assets/popcorn.png)
