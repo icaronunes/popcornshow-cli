@@ -37,9 +37,9 @@ def search(
     list = search_reel(name, year=year, type=type)
     if list:
         if luck:
-            order = sorted(list, key=lambda x: x.imdbStr(), reverse=True)
+            order = sorted(list, key=lambda x: x.imdb_str(), reverse=True)
             result = transform_item(order[0].slug, order[0].type)
-            chooseTypes(result)
+            choose_types(result)
         else:
             console.print(table_search(list))
             choose_number(list)
@@ -50,26 +50,26 @@ def search(
 def person(name: str):
     result: Result = person_reel(name)
     if result.error is None:
-        __showPerson(result.value)
+        __show_person(result.value)
     else:
         console.print(result.error)
 
 
-def chooseTypes(result: Result):
+def choose_types(result: Result):
     if result.error:
         console.print(result.error)
     else:
-        fillByType(result)
+        fill_by_type(result)
 
 
-def fillByType(result: Result):
+def fill_by_type(result: Result):
     if isinstance(result.value, ItemMovie):
-        __showMovie(result.value)
+        __show_movie(result.value)
     elif isinstance(result.value, ItemShow):
-        __showTvshow(result.value)
+        __show_tvshow(result.value)
 
 
-def __showTvshow(show: ItemShow):
+def __show_tvshow(show: ItemShow):
     tree = Tree("")
     tree.add(__rich__())
     details = Tree(
@@ -98,14 +98,14 @@ def __showTvshow(show: ItemShow):
     console.print(tree)
 
     if show.people.__len__() > 0:
-        __choosePerson(show.people)
+        __choose_person(show.people)
 
 
-def __showMovie(movie: ItemMovie):
+def __show_movie(movie: ItemMovie):
     tree = Tree("")
     tree.add(__rich__())
     details = Tree(
-        f":blue_book:[blue][b] Details - {movie.title} {format_date(movie.released_on).year if format_date(movie.released_on) != None else '-- --'}[/b] - :link: [blue][link={movie.createUrl()}]Details in Reelgood.com[/link]",
+        f":blue_book:[blue][b] Details - {movie.title} {format_date(movie.released_on).year if format_date(movie.released_on) != None else '-- --'}[/b] - :link: [blue][link={movie.create_url()}]Details in Reelgood.com[/link]",
         expanded=True,
     )
     details.add(table_details(movie), highlight=False)
@@ -123,10 +123,10 @@ def __showMovie(movie: ItemMovie):
     tree.add(__footer__(movie))
     console.print(tree)
     if movie.people.__len__() > 0:
-        __choosePerson(movie.people)
+        __choose_person(movie.people)
 
 
-def __choosePerson(list: list[Person]):
+def __choose_person(list: list[Person]):
     number = Prompt.ask(
         "[blue]Enter the person's number between 1 to "
         + f"{1 if list.__len__() == 1 else list.__len__()} "
@@ -140,10 +140,10 @@ def __choosePerson(list: list[Person]):
         person(people["slug"])
         return
     except (TypeError, ValueError, IndexError):
-        __choosePerson(list)
+        __choose_person(list)
 
 
-def __showPerson(person: PersonApi):
+def __show_person(person: PersonApi):
     tree = Tree("")
     tree.add(__rich__())
     tree.add(table_details_person(person), highlight=False)
@@ -170,8 +170,8 @@ def choose_media_by_person(person: PersonApi):
         if value < 1:
             return
         item: Item = person.initial_credits[value - 1]
-        media: Result = trabsform_item(item["slug"], item["content_type"])
-        oseTypes(media)
+        media: Result = transform_item(item["slug"], item["content_type"])
+        choose_types(media)
     except (IndexError, ValueError):
         choose_media_by_person(person)
 
@@ -242,4 +242,4 @@ def choose_number(list: list[Search], hasError=False):
 
     if item is not None:
         result = transform_item(item.slug, item.type)
-        fillByType(result)
+        fill_by_type(result)

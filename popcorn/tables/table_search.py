@@ -36,11 +36,11 @@ def table_search(items: list[Search]) -> Table:
             table=table,
             id=str(index + 1),
             title=f"[white]{item.title}[/white]",
-            release=item.formatSimpleDateStr(),
-            type=item.formatLongType(),
-            imdb=item.imdbStr(),
-            online=item.formatOnline(),
-            url=item.createUrl(),
+            release=item.format_simple_date_str(),
+            type=item.format_long_type(),
+            imdb=item.imdb_str(),
+            online=item.format_online(),
+            url=item.create_url(),
         )
     return table
 

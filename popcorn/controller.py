@@ -1,6 +1,6 @@
 import json
 
-from popcorn.api.api import get_person_details, getMovieApi, getTvShowApi, search
+from popcorn.api.api import get_movie_api, get_person_details, get_tvshow_api, search
 from popcorn.api.models.PersonApi import PersonApi
 from popcorn.api.models.Result import Result
 from popcorn.api.models.SearchApi import ContentType
@@ -17,7 +17,7 @@ def search_reel(query: str, year: int | None, type: str | None) -> list[Search]:
         objJson = json.loads(result.value)
         if objJson["items"].__len__() == 0:
             return []
-        listSearch = filtersArgs(objJson["items"], year, type)
+        listSearch = filters_args(objJson["items"], year, type)
         return format_list(listSearch)
     else:
         []
@@ -34,13 +34,13 @@ def person_reel(id) -> Result:
 def transform_item(slug: str, type: str) -> Result:
     match type:
         case ContentType.M.value:
-            movie = getMovieApi(slug)
+            movie = get_movie_api(slug)
             if movie.error is None:
                 return Result(value=ItemMovie(**json.loads(movie.value)))
             else:
                 return Result(Exception("Match not Found..."))
         case ContentType.S.value:
-            tv = getTvShowApi(slug)
+            tv = get_tvshow_api(slug)
             if tv.error is None:
                 return Result(value=ItemShow(**json.loads(tv.value)))
             else:
@@ -49,26 +49,28 @@ def transform_item(slug: str, type: str) -> Result:
             return Result(Exception("Match not Found..."))
 
 
-def filterByYear(item, year) -> bool:
+def filter_by_year(item, year) -> bool:
     if item["released_on"] == None:
         return True
     return format_date(item["released_on"]).year == year
 
 
-def filterByType(item, type) -> bool:
+def filter_by_type(item, type) -> bool:
     if item["content_type"] == None:
         return True
     return item["content_type"] == type
 
 
-def filtersArgs(items: list[any], year: int | None, type: str | None):
+def filters_args(items: list[any], year: int | None, type: str | None):
     if year == None and type == None:
         return items
     if year != None and type == None:
-        return list(filter(lambda x: (filterByYear(x, year)), items))
+        return list(filter(lambda x: (filter_by_year(x, year)), items))
     if year == None and type != None:
-        return list(filter(lambda x: (filterByType(x, type)), items))
+        return list(filter(lambda x: (filter_by_type(x, type)), items))
     if year != None and type != None:
         return list(
-            filter(lambda x: (filterByType(x, type) and filterByYear(x, year)), items)
+            filter(
+                lambda x: (filter_by_type(x, type) and filter_by_year(x, year)), items
+            )
         )

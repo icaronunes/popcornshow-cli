@@ -74,7 +74,7 @@ def search(query: str) -> Result:
         return Result(error=Exception(result.content))
 
 
-def getMovieApi(id: str) -> Result:
+def get_movie_api(id: str) -> Result:
     """
     Busca por informações da filme, retornando um json
     Parameters:
@@ -120,7 +120,7 @@ def getMovieApi(id: str) -> Result:
         return Result(error=Exception(result.content))
 
 
-def getTvShowApi(id: str) -> Result:
+def get_tvshow_api(id: str) -> Result:
     """
     Busca por informações da série, retornando um json
     Parameters:

@@ -14,15 +14,6 @@ def format_date(date: str | None) -> datetime | str | None:
         return None
 
 
-def format_full_date(date: str | None) -> datetime | str:
-    if date is None:
-        return "- -"
-    try:
-        return datetime.strptime(date, "%Y-%m-%dT%H:%M:%S")
-    except ValueError:
-        return "- -"
-
-
 def format_date_str(date: str | None) -> str:
     if date is None:
         return "--"
@@ -34,14 +25,14 @@ def format_date_str(date: str | None) -> str:
         return "-- -- --"
 
 
-def createUrl(type: str, url: str) -> str:
+def create_url(type: str, url: str) -> str:
     if type == "m":
         return URL_BASE + "movie" + "/" + url
     else:
         return URL_BASE + "show" + "/" + url
 
 
-def formatType(type: chr) -> str:
+def format_type(type: chr) -> str:
     if type == "m":
         return "Movie"
     elif type == "s":
@@ -54,9 +45,9 @@ def format_source(item: str) -> str:
     return item.replace("_", " ").title()
 
 
-def formatSources(sources: list[str]) -> str:
+def format_sources(sources: list[str]) -> str:
     result = ""
-    br = __hasBr(sources.__len__())
+    br = has_br(sources.__len__())
     sources = remove_dash(sources=sources)
     for index, source in enumerate(sources):
         result = result + source + (br if index != sources.__len__() - 1 else "")
@@ -70,14 +61,14 @@ def remove_dash(sources: list[str]) -> list[str]:
     return result
 
 
-def __hasBr(length: int):
+def has_br(length: int):
     if length >= 15:
         return "\n"
     else:
         return " - "
 
 
-def formatTrailers(trailers: list[Trailer]) -> str:
+def format_trailers(trailers: list[Trailer]) -> str:
     result = ""
     values = set(map(lambda x: x["key"], trailers))
     for index, value in enumerate(values):

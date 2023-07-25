@@ -13,13 +13,10 @@ from popcorn.models.SourceAdPlacement import SourceAdPlacement
 from popcorn.models.Tag import Tag
 from popcorn.models.Trailer import Trailer
 from popcorn.tables.TableInterface import TableInterface
-from popcorn.utils import createUrl as fullUrl
-from popcorn.utils import (
-    filterTrailerByService,
-    format_date,
-    formatSources,
-    formatTrailers,
-)
+from popcorn.utils import create_url as full_urls
+from popcorn.utils import filterTrailerByService, format_date
+from popcorn.utils import format_sources as format_sources_util
+from popcorn.utils import format_trailers
 
 
 class References:
@@ -214,10 +211,10 @@ class ItemMovie(TableInterface):
         return self.format_date()
 
     def get_time(self) -> str:
-        return self.formatTime()
+        return self.format_time()
 
     def get_imdb(self) -> str:
-        return self.imdbStr()
+        return self.imdb_str()
 
     def get_classification(self) -> str:
         return (
@@ -225,7 +222,7 @@ class ItemMovie(TableInterface):
         )
 
     def get_trailers(self) -> str:
-        return self.getListTrailers()
+        return self.get_list_trailers()
 
     def format_date(self) -> str:
         return (
@@ -234,29 +231,29 @@ class ItemMovie(TableInterface):
             else "-- --"
         )
 
-    def formatTime(self) -> str:
+    def format_time(self) -> str:
         if self.runtime is not None:
             hours, minutes = divmod(self.runtime, 60)
             return f"{hours}h {minutes}m"
         else:
             return "-- --"
 
-    def getListTrailers(self) -> str:
+    def get_list_trailers(self) -> str:
         if self.trailer is not None:
             self.trailers.append(self.trailer)
-            return formatTrailers(filterTrailerByService(self.trailers))
+            return format_trailers(filterTrailerByService(self.trailers))
         else:
             search = self.slug.replace("-", "+")
             return f"[bold blue][link=https://www.youtube.com/results?search_query={search}]Search Youtube[/link]"
 
-    def formatSources(self) -> str:
+    def format_sources(self) -> str:
         values = list(map(lambda x: x["source_name"], self.availability))
-        return formatSources(values)
+        return format_sources_util(values)
 
-    def createUrl(self):
-        return fullUrl("m", self.slug)
+    def create_url(self):
+        return full_urls("m", self.slug)
 
-    def imdbStr(self) -> str:
+    def imdb_str(self) -> str:
         if self.imdb_rating != None:
             return str(self.imdb_rating)
         else:

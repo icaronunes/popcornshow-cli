@@ -13,8 +13,8 @@ from popcorn.models.Tag import Tag
 from popcorn.models.Trailer import Trailer
 from popcorn.models.TVShowEpisode import TVShowEpisode
 from popcorn.tables.TableInterface import TableInterface
-from popcorn.utils import createUrl as fullUrl
-from popcorn.utils import filterTrailerByService, format_date, formatTrailers
+from popcorn.utils import create_url as full_url
+from popcorn.utils import filterTrailerByService, format_date, format_trailers
 
 
 @dataclass
@@ -245,7 +245,7 @@ class ItemShow(TableInterface):
         return str(self.season_count)
 
     def createUrl(self):
-        return fullUrl("s", self.slug)
+        return full_url("s", self.slug)
 
     def get_overview(self):
         return self.overview
@@ -270,7 +270,7 @@ class ItemShow(TableInterface):
     def getListTrailers(self) -> str:
         if self.trailer is not None:
             self.trailers.append(self.trailer)
-            return formatTrailers(filterTrailerByService(self.trailers))
+            return format_trailers(filterTrailerByService(self.trailers))
         else:
             search = self.slug.replace("-", "+")
             return f"[bold blue][link=https://www.youtube.com/results?search_query={search}]Search Youtube[/link]"

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from popcorn.utils import createUrl as fullUrl
-from popcorn.utils import format_date, formatSources, formatType
+from popcorn.utils import create_url as fullUrl
+from popcorn.utils import format_date, format_sources, format_type
 
 
 @dataclass
@@ -14,25 +14,25 @@ class Search:
     online: list[str]
     slug: str
 
-    def formatLongType(self):
-        return formatType(self.type)
+    def format_long_type(self):
+        return format_type(self.type)
 
-    def formatOnline(self):
-        return formatSources(self.online)
+    def format_online(self):
+        return format_sources(self.online)
 
-    def createUrl(self):
+    def create_url(self):
         return fullUrl(self.type, self.slug)
 
-    def formatSimpleDate(self):
+    def format_simple_date(self):
         result = format_date(self.release)
         if result == None:
             return "----"
         return result.year
 
-    def formatSimpleDateStr(self):
-        return str(self.formatSimpleDate())
+    def format_simple_date_str(self):
+        return str(self.format_simple_date())
 
-    def imdbStr(self) -> str:
+    def imdb_str(self) -> str:
         if self.imdb != None:
             return str(self.imdb)
         else:
