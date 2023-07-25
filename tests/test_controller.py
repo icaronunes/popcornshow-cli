@@ -1,8 +1,8 @@
 from popcorn.api.models.Result import Result
 from popcorn.api.models.SearchApi import ContentType
 from popcorn.controller import (
-    filterByType,
-    filtersArgs,
+    filter_by_type,
+    filters_args,
     person_reel,
     search_reel,
     transform_item,
@@ -120,49 +120,49 @@ def test_get_person_details_error():
     assert "Match not Found..." in str(result.error)
 
 
-def test_filterByType_equals():
+def test_filter_by_type_equals():
     type = "ok"
     item = {"content_type": type}
-    result = filterByType(item, type)
+    result = filter_by_type(item, type)
     assert result
 
 
-def test_filterByType_not_equals():
+def test_filter_by_type_not_equals():
     type = "qwert"
     item = {"content_type": "asdfg"}
-    result = filterByType(item, type)
+    result = filter_by_type(item, type)
     assert result is False
 
 
-def test_filterByType_none():
+def test_filter_by_type_none():
     type = None
     item = {"content_type": type}
-    result = filterByType(item, type)
+    result = filter_by_type(item, type)
     assert result
 
 
-def test_filtersArgs_year_none_and_type_none():
+def test_filters_args_year_none_and_type_none():
     item = {"title": "2006", "released_on": "2006-10-26T00:00:00Z"}
     item2 = {"title": "2008", "released_on": "2008-10-26T00:00:00Z"}
     item3 = {"title": "2010", "released_on": "2010-10-26T00:00:00Z"}
     list = [item, item2, item3]
-    result = filtersArgs(list, None, None)
+    result = filters_args(list, None, None)
     assert list == result
 
 
-def test_filtersArgs_year_and_type_none():
+def test_filters_args_year_and_type_none():
     first = {"title": "2006", "released_on": "2006-10-26T00:00:00Z"}
     item2 = {"title": "2010", "released_on": "2010-10-26T00:00:00Z"}
     item3 = {"title": "2010", "released_on": "2010-10-26T00:00:00Z"}
     list = [first, item2, item3]
     year = 2010
-    result = filtersArgs(list, year, None)
+    result = filters_args(list, year, None)
     assert result.__len__() == 2
     assert item2 == result[0]
     assert item3 == result[1]
 
 
-def test_filtersArgs_year_none_and_type():
+def test_filters_args_year_none_and_type():
     item1 = {
         "title": "item1",
         "released_on": "2010-10-26T00:00:00Z,",
@@ -185,17 +185,17 @@ def test_filtersArgs_year_none_and_type():
     }
     list = [item1, item2, item3, item4]
 
-    result = filtersArgs(list, None, "m")
+    result = filters_args(list, None, "m")
     assert item2 == result[0]
     assert item4 == result[1]
     assert result.__len__() == 2
-    result = filtersArgs(list, None, "s")
+    result = filters_args(list, None, "s")
     assert item1 == result[0]
     assert item3 == result[1]
     assert result.__len__() == 2
 
 
-def test_filtersArgs_year_and_type_m():
+def test_filters_args_year_and_type_m():
     year = 2010
     item1 = {"title": year, "released_on": "2010-10-26T00:00:00Z,", "content_type": "s"}
     item2 = {
@@ -206,9 +206,9 @@ def test_filtersArgs_year_and_type_m():
     item3 = {"title": year, "released_on": "2010-10-26T00:00:00Z", "content_type": "m"}
     list = [item1, item2, item3]
 
-    result = filtersArgs(list, year, "m")
+    result = filters_args(list, year, "m")
     assert item3 == result[0]
     assert result.__len__() == 1
-    result = filtersArgs(list, year, "s")
+    result = filters_args(list, year, "s")
     assert item1 == result[0]
     assert result.__len__() == 1

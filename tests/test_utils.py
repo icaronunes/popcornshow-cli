@@ -1,10 +1,4 @@
-from popcorn.utils import (
-    __hasBr,
-    format_date,
-    format_date_str,
-    format_full_date,
-    formatType,
-)
+from popcorn.utils import format_date, format_date_str, format_type, has_br
 
 
 def test_format_data_str_none():
@@ -22,46 +16,35 @@ def test_format_date_str_except():
 def test_format_date_str_ok():
     text = "2006-10-26T00:00:00Z"
     result = format_date_str(text)
-    result == "2006-10-26"
+    assert result == "2006-10-26"
 
 
 def test_format_date_exception():
     result = format_date("exception")
-    result is None
+    assert result is None
 
 
 def test_format_date_none():
     result = format_date(None)
-    result is None
-
-
-def test_format_full_date_none():
-    result = format_full_date(None)
-    result = "- -"
-
-
-def test_format_full_date_ok():
-    full_date = "2006-10-26T00:00:00Z"
-    result = format_full_date(full_date)
-    result = "oqueeh"
+    assert result is None
 
 
 def test_has_br_more_15_char():
     text = "qwertyuiopasdfghjklzxcvbnm"
-    result = __hasBr(text.__len__())
-    result == "\n"
+    result = has_br(text.__len__())
+    assert result == "\n"
 
 
 def test_fortmat_type_m():
-    result = formatType("m")
-    result == "Movie"
+    result = format_type("m")
+    assert result == "Movie"
 
 
 def test_format_type_s():
-    result = formatType("s")
-    result == "Show"
+    result = format_type("s")
+    assert result == "Show"
 
 
 def test_format_type_not():
-    result = formatType("qwert")
-    result == "- -"
+    result = format_type("qwert")
+    assert result == "- -"

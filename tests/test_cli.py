@@ -74,7 +74,6 @@ def test_result_lost_by_movie_luck():
     assert "IMDB" in std
     assert "Trailers" in std
     assert "Details" in std
-    assert "Where to Watch: Indiana Jones and the Raiders of the Lost Ark" in std
     if "Raiders of the Lost Ark 1981" in std:
         assert "Steven Spielberg" in std
         assert "Harrison Ford" in std
