@@ -118,6 +118,7 @@ class ItemMovie(TableInterface):
     source_ad_placements: list[SourceAdPlacement]
     rating_stats: any
     reviews_count: int
+    madlib_synopsis: str
 
     def __init__(
         self,
@@ -160,6 +161,7 @@ class ItemMovie(TableInterface):
         source_ad_placements: list[SourceAdPlacement],
         rating_stats={},
         reviews_count: int = 0,
+        madlib_synopsis: str = "",
     ) -> None:
         self.metadata = metadata
         self.id = id
@@ -200,6 +202,7 @@ class ItemMovie(TableInterface):
         self.source_ad_placements = source_ad_placements
         self.rating_stats = rating_stats
         self.reviews_count = reviews_count
+        self.madlib_synopsis = madlib_synopsis
 
     def get_number_seasons(self):
         return "0"

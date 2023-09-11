@@ -107,6 +107,13 @@ class Recommended_episode:
     season_id: str
 
 
+@dataclass
+class RatingStats:
+    dislike_count: str
+    like_count: str
+    love_count: str
+
+
 class ItemShow(TableInterface):
     metadata: Metadata
     id: str
@@ -121,7 +128,7 @@ class ItemShow(TableInterface):
     rt_audience_rating: int
     has_poster: bool
     has_backdrop: bool
-    season_count = int
+    season_count: int
     classification: str
     last_modified_at: datetime
     sources: list[str]
@@ -134,21 +141,22 @@ class ItemShow(TableInterface):
     genres: list[int]
     tags: list[Tag]
     countries: list[str]
-    tracking = bool
+    tracking: bool
     people: list[Person]
-    completed_on = bool
+    completed_on: str
     score_breakdown: ScoreBreakdown
     regional_availability: RegionalAvailability
     reelgood_score = ReelgoodScores
     returning_on = str
     source_ad_placement: SourceAdPlacement
     source_ad_placements: list[SourceAdPlacement]
-    unwatched = int
-    coming_on = str
-    has_new = bool
-    recommended_episode = list[Recommended_episode]
-    seasons = list[Season]
-    episodes = list[TVShowEpisode]
+    unwatched: int
+    coming_on: str
+    has_new: bool
+    recommended_episode: list[Recommended_episode]
+    seasons: list[Season]
+    episodes: list[TVShowEpisode]
+    madlib_synopsis: str
 
     def __init__(
         self,
@@ -194,8 +202,9 @@ class ItemShow(TableInterface):
         seasons: list[Season],
         episodes: list[TVShowEpisode],
         episode_availability: list[any],
-        rating_stats: any = {},
+        rating_stats: RatingStats,
         reviews_count: int = 0,
+        madlib_synopsis: str = "",
     ) -> None:
         self.metadata = metadata
         self.id = id
@@ -240,6 +249,7 @@ class ItemShow(TableInterface):
         self.episodes = episodes
         self.rating_stats = rating_stats
         self.reviews_count = reviews_count
+        self.madlib_synopsis = madlib_synopsis
 
     def get_number_seasons(self):
         return str(self.season_count)
