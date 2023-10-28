@@ -5,6 +5,7 @@ from popcorn.models.Ios import Ios
 from popcorn.models.Links import Links
 from popcorn.models.Metadata import Metadata
 from popcorn.models.Person import Person
+from popcorn.models.RatingStats import RatingStats
 from popcorn.models.ReelgoodScores import ReelgoodScores
 from popcorn.models.RegionalAvailability import RegionalAvailability
 from popcorn.models.ScoreBreakdown import ScoreBreakdown
@@ -12,7 +13,6 @@ from popcorn.models.SourceAdPlacement import SourceAdPlacement
 from popcorn.models.Tag import Tag
 from popcorn.models.Trailer import Trailer
 from popcorn.tables.TableInterface import TableInterface
-from popcorn.models.RatingStats import RatingStats
 from popcorn.utils import create_url as full_urls
 from popcorn.utils import filterTrailerByService, format_date
 from popcorn.utils import format_sources as format_sources_util
@@ -80,6 +80,7 @@ class Availability:
 
 class TextReasons:
     text: str
+
 
 class ItemMovie(TableInterface):
     metadata: Metadata

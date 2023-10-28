@@ -4,13 +4,13 @@ from typing import Any
 
 from popcorn.models.Metadata import Metadata
 from popcorn.models.Person import Person
+from popcorn.models.RatingStats import RatingStats
 from popcorn.models.ReelgoodScores import ReelgoodScores
 from popcorn.models.RegionalAvailability import RegionalAvailability
 from popcorn.models.ScoreBreakdown import ScoreBreakdown
 from popcorn.models.Seasons import Season
 from popcorn.models.SourceAdPlacement import SourceAdPlacement
 from popcorn.models.Tag import Tag
-from popcorn.models.RatingStats import RatingStats
 from popcorn.models.Trailer import Trailer
 from popcorn.models.TVShowEpisode import TVShowEpisode
 from popcorn.tables.TableInterface import TableInterface
