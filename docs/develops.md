@@ -51,15 +51,15 @@ Qualquer erro para a pipeline
 
 ```bash
 ├───popcorn
-│   ├───api
-│   │   ├───models
-│   │   │
-│   │   PersonApi.py
-│   │   Result.py
-│   │   SearchApi.py
+├───api
 │   ├───models
-│   │      ├───tables
-│   │      .....>>>>
+│   │   
+│    PersonApi.py
+│   │Result.py
+│   │SearchApi.py
+│   ├───models
+│          ├───tables
+│          .....>>>>
 │    cli.py
 │    config.py
 │    controller.py

@@ -7,6 +7,17 @@ theme:
   name: dracula
   favicon: assets/favico.ico  
   locale: pt_BR
+  language: custom
+
+extra:
+  alternate:
+    - name: English
+      link: /en/ 
+      lang: en
+    - name: Potuguese
+      link: /pt/
+      lang: pt-BR
+
 
 plugins:
   - mkdocstrings:
