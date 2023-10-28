@@ -10,6 +10,7 @@ from popcorn.models.ScoreBreakdown import ScoreBreakdown
 from popcorn.models.Seasons import Season
 from popcorn.models.SourceAdPlacement import SourceAdPlacement
 from popcorn.models.Tag import Tag
+from popcorn.models.RatingStats import RatingStats
 from popcorn.models.Trailer import Trailer
 from popcorn.models.TVShowEpisode import TVShowEpisode
 from popcorn.tables.TableInterface import TableInterface
@@ -107,11 +108,8 @@ class Recommended_episode:
     season_id: str
 
 
-@dataclass
-class RatingStats:
-    dislike_count: str
-    like_count: str
-    love_count: str
+class TextReasons:
+    text: str
 
 
 class ItemShow(TableInterface):
@@ -146,8 +144,8 @@ class ItemShow(TableInterface):
     completed_on: str
     score_breakdown: ScoreBreakdown
     regional_availability: RegionalAvailability
-    reelgood_score = ReelgoodScores
-    returning_on = str
+    reelgood_scores: ReelgoodScores
+    returning_on: Any
     source_ad_placement: SourceAdPlacement
     source_ad_placements: list[SourceAdPlacement]
     unwatched: int
@@ -157,6 +155,10 @@ class ItemShow(TableInterface):
     seasons: list[Season]
     episodes: list[TVShowEpisode]
     madlib_synopsis: str
+    where_to_wathc: str
+    reasons_to_watch: list[TextReasons]
+    imdb_votes: int
+    episode_availability: list[Any]
 
     def __init__(
         self,
@@ -192,8 +194,8 @@ class ItemShow(TableInterface):
         source_ad_placements: list[SourceAdPlacement],
         season_count: int,
         tracking: bool,
-        completed_on: bool,
-        returning_on: str,
+        completed_on: str,
+        returning_on: Any,
         unwatched: int,
         coming_on: str,
         has_new: bool,
@@ -201,10 +203,12 @@ class ItemShow(TableInterface):
         imdb_votes: int,
         seasons: list[Season],
         episodes: list[TVShowEpisode],
-        episode_availability: list[any],
+        episode_availability: list[Any],
         rating_stats: RatingStats,
         reviews_count: int = 0,
         madlib_synopsis: str = "",
+        where_to_watch: str = "",
+        reasons_to_watch: list[TextReasons] = [],
     ) -> None:
         self.metadata = metadata
         self.id = id
@@ -236,7 +240,7 @@ class ItemShow(TableInterface):
         self.regional_availability = regional_availability
         self.source_ad_placement = source_ad_placement
         self.source_ad_placements = source_ad_placements
-        self.reelgood_score = reelgood_scores
+        self.reelgood_scores = reelgood_scores
         self.season_count = season_count
         self.tracking = tracking
         self.completed_on = completed_on
@@ -250,6 +254,10 @@ class ItemShow(TableInterface):
         self.rating_stats = rating_stats
         self.reviews_count = reviews_count
         self.madlib_synopsis = madlib_synopsis
+        self.where_to_watch = where_to_watch
+        self.reasons_to_watch = reasons_to_watch
+        self.imdb_votes = imdb_votes
+        self.episode_availability = episode_availability
 
     def get_number_seasons(self):
         return str(self.season_count)

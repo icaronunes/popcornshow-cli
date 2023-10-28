@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 
@@ -13,6 +12,7 @@ from popcorn.models.SourceAdPlacement import SourceAdPlacement
 from popcorn.models.Tag import Tag
 from popcorn.models.Trailer import Trailer
 from popcorn.tables.TableInterface import TableInterface
+from popcorn.models.RatingStats import RatingStats
 from popcorn.utils import create_url as full_urls
 from popcorn.utils import filterTrailerByService, format_date
 from popcorn.utils import format_sources as format_sources_util
@@ -78,6 +78,9 @@ class Availability:
         self.source_data = source_data
 
 
+class TextReasons:
+    text: str
+
 class ItemMovie(TableInterface):
     metadata: Metadata
     id: str
@@ -116,9 +119,11 @@ class ItemMovie(TableInterface):
     regional_availability: RegionalAvailability
     source_ad_placement: SourceAdPlacement
     source_ad_placements: list[SourceAdPlacement]
-    rating_stats: any
+    rating_stats: RatingStats
     reviews_count: int
     madlib_synopsis: str
+    where_to_wathc: str
+    reasons_to_watch: list[TextReasons]
 
     def __init__(
         self,
@@ -159,9 +164,11 @@ class ItemMovie(TableInterface):
         regional_availability: RegionalAvailability,
         source_ad_placement: SourceAdPlacement,
         source_ad_placements: list[SourceAdPlacement],
-        rating_stats={},
+        rating_stats: RatingStats,
         reviews_count: int = 0,
         madlib_synopsis: str = "",
+        where_to_watch: str = "",
+        reasons_to_watch: list[TextReasons] = [],
     ) -> None:
         self.metadata = metadata
         self.id = id
@@ -203,6 +210,8 @@ class ItemMovie(TableInterface):
         self.rating_stats = rating_stats
         self.reviews_count = reviews_count
         self.madlib_synopsis = madlib_synopsis
+        self.where_to_watch = where_to_watch
+        self.reasons_to_watch = reasons_to_watch
 
     def get_number_seasons(self):
         return "0"
