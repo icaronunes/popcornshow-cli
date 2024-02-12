@@ -159,6 +159,7 @@ class ItemShow(TableInterface):
     reasons_to_watch: list[TextReasons]
     imdb_votes: int
     episode_availability: list[Any]
+    content_blocks: any
 
     def __init__(
         self,
@@ -209,6 +210,7 @@ class ItemShow(TableInterface):
         madlib_synopsis: str = "",
         where_to_watch: str = "",
         reasons_to_watch: list[TextReasons] = [],
+        content_blocks: str = "",
     ) -> None:
         self.metadata = metadata
         self.id = id
@@ -229,7 +231,6 @@ class ItemShow(TableInterface):
         self.rt_critics_rating = rt_critics_rating
         self.last_modified_at = last_modified_at
         self.user_rating = user_rating
-        self.user_lists = user_lists
         self.sources = sources
         self.on_free = on_free
         self.on_rent_purchase = on_rent_purchase
@@ -258,6 +259,7 @@ class ItemShow(TableInterface):
         self.reasons_to_watch = reasons_to_watch
         self.imdb_votes = imdb_votes
         self.episode_availability = episode_availability
+        self.content_blocks = content_blocks
 
     def get_number_seasons(self):
         return str(self.season_count)

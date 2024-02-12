@@ -170,6 +170,7 @@ class ItemMovie(TableInterface):
         madlib_synopsis: str = "",
         where_to_watch: str = "",
         reasons_to_watch: list[TextReasons] = [],
+        content_blocks: any = "",
     ) -> None:
         self.metadata = metadata
         self.id = id
@@ -213,6 +214,7 @@ class ItemMovie(TableInterface):
         self.madlib_synopsis = madlib_synopsis
         self.where_to_watch = where_to_watch
         self.reasons_to_watch = reasons_to_watch
+        self.content_blocks = content_blocks
 
     def get_number_seasons(self):
         return "0"
