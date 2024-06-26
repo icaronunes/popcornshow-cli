@@ -4,6 +4,8 @@
 [![CI](https://github.com/icaronunes/popcornshow-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/icaronunes/popcornshow-cli/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/icaronunes/popcornshow-cli/branch/master/graph/badge.svg?token=OL7MWQKQKR)](https://codecov.io/gh/icaronunes/popcornshow-cli)
 
+[![Pype](https://pypi.org/static/images/logo-small.8998e9d1.svg)](https://pypi.org/project/popcornshow/)
+
 CLI com o objetivo de obter informações sobre filmes/séries e pessoas envolvidas na produção via terminal.
 Apresentando as informações mais relevantes diretamente no seu terminal.
 
