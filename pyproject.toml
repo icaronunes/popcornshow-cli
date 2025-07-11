@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "popcornshow"
 packages = [{include = "popcorn"}]
-version = "0.1.6"
+version = "0.1.7"
 description = "Show information about movie and movies"
 authors = ["Icaro Nunes <icarornunes@gmail.com>"]
 license = "BeerWare"
