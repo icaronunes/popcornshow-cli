@@ -2,6 +2,10 @@ import requests
 
 from popcorn.api.models.Result import Result
 
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+}
+cookies = {"cli python": "popcornshow"}
 paramsDefault = {
     "page": "1",
     "pageSize": "10",
@@ -66,7 +70,10 @@ def search(query: str) -> Result:
     """
     paramsDefault["terms"] = query
     result = requests.get(
-        "https://api.reelgood.com/v3.0/content/search/content", params=paramsDefault
+        "https://api.reelgood.com/v3.0/content/search/content",
+        params=paramsDefault,
+        headers=headers,
+        cookies=cookies,
     )
     if result.status_code == requests.codes.ok:
         return Result(value=result.text)
@@ -113,7 +120,11 @@ def get_movie_api(id: str) -> Result:
                 "traceId": "00-879fe78e889ae66bb06aa8ae86c6ac11-9a132b9f1975f20e-00"
             }
     """
-    result = requests.get(f"https://api.reelgood.com/v3.0/content/movie/{id}")
+    result = requests.get(
+        f"https://api.reelgood.com/v3.0/content/movie/{id}",
+        cookies=cookies,
+        headers=headers,
+    )
     if result.status_code == requests.codes.ok:
         return Result(value=result.text)
     else:
@@ -170,7 +181,11 @@ def get_tvshow_api(id: str) -> Result:
                 "traceId": "00-cfa2d680394c5d6dcba63ceda93993eb-b2dc38cd80923d52-00"
             }
     """
-    result = requests.get(f"https://api.reelgood.com/v3.0/content/show/{id}")
+    result = requests.get(
+        f"https://api.reelgood.com/v3.0/content/show/{id}",
+        cookies=cookies,
+        headers=headers,
+    )
     if result.status_code == requests.codes.ok:
         return Result(value=result.text)
     else:
@@ -179,7 +194,9 @@ def get_tvshow_api(id: str) -> Result:
 
 def get_person_details(id) -> Result:
     result = requests.get(
-        f"https://api.reelgood.com/v3.0/content/people/{id}?availability=all&content_kind=both&hide_seen=true&hide_tracked=true&hide_watchlisted=true&imdb_end=10&imdb_start=0&region=us&rg_end=100&rg_start=0&skip=0&sort=0&take=35&year_end=2023&year_start=1900"
+        f"https://api.reelgood.com/v3.0/content/people/{id}?availability=all&content_kind=both&hide_seen=true&hide_tracked=true&hide_watchlisted=true&imdb_end=10&imdb_start=0&region=us&rg_end=100&rg_start=0&skip=0&sort=0&take=35&year_end=2023&year_start=1900",
+        headers=headers,
+        cookies=cookies,
     )
     if result.status_code == requests.codes.ok:
         return Result(value=result.text)

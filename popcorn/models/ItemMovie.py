@@ -171,6 +171,7 @@ class ItemMovie(TableInterface):
         where_to_watch: str = "",
         reasons_to_watch: list[TextReasons] = [],
         content_blocks: any = "",
+        **kwargs,
     ) -> None:
         self.metadata = metadata
         self.id = id

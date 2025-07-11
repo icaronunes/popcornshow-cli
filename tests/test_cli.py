@@ -15,8 +15,8 @@ APP_CURRENT_RUNNER = 1
 
 
 def test_result_lost_by_show_with_luck():
-    result = runner.invoke(app, ["lost", "--year", "2004", "-l"])
-    __details_by_lost(result)
+    result = runner.invoke(app, ["breaking bad", "--year", "2008", "-l"])
+    __details_by_breaking_bad(result)
 
 
 def test_result_breaking_bad_by_show_out_luck():
@@ -86,7 +86,7 @@ def test_view_foot():
     assert "App Android =>" in out
 
 
-def __details_by_lost(result):
+def __details_by_breaking_bad(result):
     assert result.exit_code == APP_CURRENT_RUNNER
     assert "POPCORN SHOW" in result.stdout
     assert "Details" in result.stdout
@@ -95,5 +95,5 @@ def __details_by_lost(result):
     assert "Season" in result.stdout
     assert "People" in result.stdout
     assert "Where to Watch" in result.stdout
-    assert "Naveen Andrews" in result.stdout
-    assert "Sayid Jarrah" in result.stdout
+    assert "Aaron Paul" in result.stdout
+    assert "Bryan Cranston" in result.stdout
