@@ -194,7 +194,7 @@ def __footer__(item: ItemMovie | ItemShow) -> Panel:
     if item.score_breakdown["content"]["text"]:
         grid.add_row(
             f"[orange1][b]{item.score_breakdown['content']['text']}",
-            f"[b][link=https://play.google.com/store/apps/details?id=br.com.icaro.filme][yellow]App Android => [/link]",
+            f"[b][link=https://popcorn-web-navy.vercel.app][yellow]App Android => [/link]",
         )
     return Panel(grid, style="red1 on black")
 
@@ -207,13 +207,13 @@ def __footer_person__(item: PersonApi) -> Panel:
         link = f"[b][orange1]:link:[link={item.homepage}] Site"
         grid.add_row(
             link,
-            f"[b][link=https://play.google.com/store/apps/details?id=br.com.icaro.filme][yellow]App Android => [/link]",
+            f"[b][link=https://popcorn-web-navy.vercel.app][yellow]App Android => [/link]",
         )
     else:
         grid.add_column(justify="right", ratio=1)
         grid.add_row(
             "",
-            f"[b][link=https://play.google.com/store/apps/details?id=br.com.icaro.filme][yellow]App Android => [/link]",
+            f"[b][link=https://popcorn-web-navy.vercel.app][yellow]App Android => [/link]",
         )
     return Panel(grid, style="red1 on black")
 
